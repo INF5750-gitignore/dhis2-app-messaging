@@ -1,16 +1,16 @@
 {
   "version": "0.1",
-  "name": "My App",
-  "description": "My App is a Packaged App",
-  "launch_path": "/index.html",
+  "name": "Messaging Application",
+  "description": "This application is a Touch-based messaging app optimized for touch based devices with offline support for last X months",
+  "launch_path": "/html/index.html",
   "icons": {
-    "16": "/img/icons/mortar-16.png",
-    "48": "/img/icons/mortar-48.png",
-    "128": "/img/icons/mortar-128.png"
+    "16": "/img/icons/icon-16.png",
+    "48": "/img/icons/icon-48.png",
+    "128": "/img/icons/icon-128.png"
   },
   "developer": {
-    "name": "Me",
-    "url": "http://me.com"
+    "name": "Jean-Charles Leneveu & Bastien de la Selle",
+    "url": "http://dhis.leneveu.fr"
   },
   "default_locale": "en",
   "activities": {
