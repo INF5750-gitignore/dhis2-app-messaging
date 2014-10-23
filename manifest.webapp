@@ -1,0 +1,21 @@
+{
+  "version": "0.1",
+  "name": "My App",
+  "description": "My App is a Packaged App",
+  "launch_path": "/index.html",
+  "icons": {
+    "16": "/img/icons/mortar-16.png",
+    "48": "/img/icons/mortar-48.png",
+    "128": "/img/icons/mortar-128.png"
+  },
+  "developer": {
+    "name": "Me",
+    "url": "http://me.com"
+  },
+  "default_locale": "en",
+  "activities": {
+    "dhis": {
+      "href": "*"
+    }
+  }
+}
