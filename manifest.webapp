@@ -5,7 +5,9 @@
   "launch_path": "/html/index.html",
   "icons": {
     "16": "/img/icons/icon-16.png",
+    "32": "/img/icons/icon-32.png",
     "48": "/img/icons/icon-48.png",
+    "64": "/img/icons/icon-64.png",
     "128": "/img/icons/icon-128.png"
   },
   "developer": {
