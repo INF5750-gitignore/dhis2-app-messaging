@@ -16,8 +16,10 @@
     <link rel="stylesheet" href="css/style.css">
 
     <!-- Javascript -->
-    <script src="js/jquery.min.js" async></script>
-    <script src="js/bootstrap.min.js" async></script>
+    <script src="js/jquery/jquery.min.js" async></script>
+    <script src="js/bootstrap/bootstrap.min.js" async></script>
+    <script src="js/angularjs/angular.min.js"></script>
+    <script src="js/application.js"></script>
 </head>
 
 <body>
@@ -144,18 +146,31 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="home">
-                    <div class="list-group">
+                    <div class="list-group" ng-app="app" ng-controller="messages">
+
+                        <!---->
+
+                        <div ng-repeat="message in messages track by $index">
+
+                            <a href="#" class="list-group-item">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox">
+                                    </label>
+                                </div>
+                                <span class="glyphicon glyphicon-star-empty"></span>
+                                <span class="name" style="min-width: 120px; display: inline-block;">//message.author//</span>
+                                <span class="">{{message.name}}</span>
+                                <!--<span class="text-muted" style="font-size: 11px;">{{message.content}}</span>-->
+                                <span class="badge">{{message.lastUpdated | date : 'mediumDate'}}</span>
+                                <span class="pull-right"><span class="glyphicon glyphicon-paperclip"></span></span>
+                            </a>
+
+                        </div>
+
+                        <!---->
+
                         <a href="#" class="list-group-item">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox">
-                                </label>
-                            </div>
-                            <span class="glyphicon glyphicon-star-empty"></span><span class="name" style="min-width: 120px;
-                            display: inline-block;">Bhaumik Patel</span> <span class="">This is big title</span>
-                            <span class="text-muted" style="font-size: 11px;">- Hi hello how r u ?</span> <span
-                                class="badge">12:10 AM</span> <span class="pull-right"><span class="glyphicon glyphicon-paperclip">
-                            </span></span></a><a href="#" class="list-group-item">
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox">
