@@ -159,9 +159,9 @@
                                     </label>
                                 </div>
                                 <span class="glyphicon glyphicon-star-empty"></span>
-                                <span class="name" style="min-width: 120px; display: inline-block;">//message.author//</span>
-                                <span class="">{{message.name}}</span>
-                                <!--<span class="text-muted" style="font-size: 11px;">{{message.content}}</span>-->
+                                <span class="name" style="min-width: 120px; display: inline-block;">{{message.lastSender.name}}</span>
+                                <span class="trim-name">{{message.displayName}}</span>
+                                <span class="text-muted trim-title" style="font-size: 11px;">{{message.messages[0].name}}</span>
                                 <span class="badge">{{message.lastUpdated | date : 'mediumDate'}}</span>
                                 <span class="pull-right"><span class="glyphicon glyphicon-paperclip"></span></span>
                             </a>

@@ -46,3 +46,23 @@ hr {
 .nav-pills > li > a {
     padding: 5px 10px;
 }
+
+.trim-name {
+    max-width: 60%;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 15px;
+    position: relative;
+}
+
+.trim-title {
+    max-width: 20%;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 15px;
+    position: relative;
+}
