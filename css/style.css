@@ -47,8 +47,7 @@ hr {
     padding: 5px 10px;
 }
 
-.trim-name {
-    max-width: 60%;
+.trim {
     display: inline-block;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -57,12 +56,14 @@ hr {
     position: relative;
 }
 
-.trim-title {
+.name {
+    max-width: 10%;
+}
+
+.title {
+    max-width: 40%;
+}
+
+.content {
     max-width: 20%;
-    display: inline-block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    line-height: 15px;
-    position: relative;
 }

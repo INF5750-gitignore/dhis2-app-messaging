@@ -147,11 +147,7 @@
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="home">
                     <div class="list-group" ng-app="app" ng-controller="messages">
-
-                        <!---->
-
                         <div ng-repeat="message in messages track by $index">
-
                             <a href="#" class="list-group-item">
                                 <div class="checkbox">
                                     <label>
@@ -159,38 +155,13 @@
                                     </label>
                                 </div>
                                 <span class="glyphicon glyphicon-star-empty"></span>
-                                <span class="name" style="min-width: 120px; display: inline-block;">{{message.lastSender.name}}</span>
-                                <span class="trim-name">{{message.displayName}}</span>
-                                <span class="text-muted trim-title" style="font-size: 11px;">{{message.messages[0].name}}</span>
+                                <span class="trim name" style="min-width: 120px; display: inline-block;">{{message.lastSender.name}}</span>
+                                <span class="trim title">{{message.displayName}}</span>
+                                <span class="text-muted trim content" style="font-size: 11px;">{{message.messages[0].name}}</span>
                                 <span class="badge">{{message.lastUpdated | date : 'mediumDate'}}</span>
                                 <span class="pull-right"><span class="glyphicon glyphicon-paperclip"></span></span>
                             </a>
-
                         </div>
-
-                        <!---->
-
-                        <a href="#" class="list-group-item">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">
-                            </label>
-                        </div>
-                        <span class="glyphicon glyphicon-star-empty"></span><span class="name" style="min-width: 120px;
-                                    display: inline-block;">Bhaumik Patel</span> <span class="">This is big title</span>
-                        <span class="text-muted" style="font-size: 11px;">- Hi hello how r u ?</span> <span
-                            class="badge">12:10 AM</span> <span class="pull-right"><span class="glyphicon glyphicon-paperclip">
-                                    </span></span></a><a href="#" class="list-group-item read">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">
-                            </label>
-                        </div>
-                        <span class="glyphicon glyphicon-star"></span><span class="name" style="min-width: 120px;
-                                            display: inline-block;">Bhaumik Patel</span> <span class="">This is big title</span>
-                        <span class="text-muted" style="font-size: 11px;">- Hi hello how r u ?</span> <span
-                            class="badge">12:10 AM</span> <span class="pull-right"><span class="glyphicon glyphicon-paperclip">
-                                            </span></span></a>
                     </div>
                 </div>
                 <div class="tab-pane fade in" id="profile">
