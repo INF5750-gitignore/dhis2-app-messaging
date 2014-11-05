@@ -33,130 +33,33 @@
 
 <body ng-app="app" ng-controller="messages">
 
-<div class="container">
-
-    <!-- Static navbar -->
-    <div class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">Messaging Application</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="divider"></li>
-                            <li class="dropdown-header">Nav header</li>
-                            <li><a href="#">Separated link</a></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="index.html">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                </ul>
-            </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
-    </div>
-</div>
+    <header>
+    </header>
 
 <!-- Main component for a primary marketing message or call to action -->
 <div class="container">
-    <div class="row">
-        <div class="col-sm-12 col-md-12">
-            <!-- Split button -->
-            <div class="btn-group">
-                <button type="button" class="btn btn-default">
-                    <div class="checkbox" style="margin-top: -18px; padding-bottom: 8px">
-                        <label>
-                            <input type="checkbox">
-                        </label>
-                    </div>
-                </button>
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">All</a></li>
-                    <li><a href="#">None</a></li>
-                    <li><a href="#">Read</a></li>
-                    <li><a href="#">Unread</a></li>
-                    <li><a href="#">Starred</a></li>
-                    <li><a href="#">Unstarred</a></li>
-                </ul>
-            </div>
-            <button type="button" class="btn btn-default" data-toggle="tooltip" title="Refresh">
-                <span class="glyphicon glyphicon-refresh"></span>   </button>
-            <!-- Single button -->
-            <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    More <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Mark all as read</a></li>
-                    <li class="divider"></li>
-                    <li class="text-center"><small class="text-muted">Select messages to see more actions</small></li>
-                </ul>
-            </div>
-            <div class="pull-right">
-                <b>{{messages.length}}</b> <i class="fa fa-envelope"></i>
-            </div>
-        </div>
-    </div>
-    <hr />
-    <div class="row">
-        <div class="col-sm-3 col-md-2">
-            <a href="#" class="btn btn-danger btn-sm btn-block" role="button">COMPOSE</a>
-            <hr />
-            <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#"><span class="badge pull-right">42</span> Inbox </a>
-                </li>
-                <li><a href="#">Starred</a></li>
-                <li><a href="#">Important</a></li>
-                <li><a href="#">Sent Mail</a></li>
-                <li><a href="#"><span class="badge pull-right">3</span>Drafts</a></li>
-            </ul>
-        </div>
-        <div class="col-sm-9 col-md-10">
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div class="tab-pane fade in active" id="messages">
-                    <div class="list-group">
-                        <div ng-repeat="message in messages track by $index">
-                            <a href="#" class="list-group-item">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox">
-                                    </label>
-                                </div>
-                                <span class="glyphicon glyphicon-star-empty"></span>
-                                <span class="trim name" style="min-width: 120px; display: inline-block;">{{message.lastSender.name}}</span>
-                                <span class="trim title">{{message.displayName}}</span>
-                                <span class="text-muted trim content" style="font-size: 11px;">{{message.messages[0].name}}</span>
-                                <span class="badge">{{message.lastUpdated | date : 'mediumDate'}}</span>
-                                <span class="pull-right"><span class="glyphicon glyphicon-paperclip"></span></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <h1 id="messages">Messages</h1>
+
+    <!-- 
+        TODO:
+        Mobile layout:
+        [x] From                & Date
+        Title
+        Body
+    -->
+    <div ng-repeat="message in messages | orderBy:lastMessage">
+        <a href="#" class="row list-group-item message-list">
+            <span class="col-sm-1 star glyphicon glyphicon-star-empty"></span>
+            <span class="col-sm-2 name ellipsize">{{ message.lastSender.name }}</span>
+            <span class="row col-sm-6">
+                <span class="col-md-5 col-sm-12 title ellipsize">{{ message.displayName }}</span>
+                <span class="col-md-7 col-sm-12 content text-muted ellipsize">{{message.messages[0].name }}</span>
+            </span>
+            <span class="col-sm-2 date badge">{{ message.lastUpdated | date : 'mediumDate' }}</span>
+            <span class="col-sm-1 pull-right">
+                <span class="attachment glyphicon glyphicon-paperclip"></span>
+            </span>
+        </a>
 </div> <!-- /container -->
 </body>
 </html>

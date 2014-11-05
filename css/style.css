@@ -1,9 +1,50 @@
 body {
-    margin-top: 20px;
+    font-size: 14px;
+    margin-top: 1em;
 }
 
+.ellipsize {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.1em;
+    position: relative;
+}
+
+.message-list .star {
+    display: inline-block;
+    font-size: 20px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.message-list .star:hover {
+    color: #CCC;
+}
+
+.message-list .name {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.message-list .title {
+    vertical-align: middle;
+    text-align: left;
+}
+
+.message-list .date {
+}
+
+.message-list .attachment {
+    text-align: center;
+    font-size: 20px;
+    width: 3%;
+}
+
+/*
 .nav-tabs .glyphicon:not(.no-margin) {
-    margin-right: 10px;
+    margin-right: 0.5em;
 }
 
 .tab-pane .list-group-item:first-child {
@@ -67,3 +108,4 @@ hr {
 .content {
     max-width: 20%;
 }
+*/
