@@ -32,34 +32,24 @@
 </head>
 
 <body ng-app="app" ng-controller="messages">
-
-    <header>
-    </header>
-
-<!-- Main component for a primary marketing message or call to action -->
 <div class="container">
     <h1 id="messages">Messages</h1>
-
-    <!-- 
-        TODO:
-        Mobile layout:
-        [x] From                & Date
-        Title
-        Body
-    -->
     <div ng-repeat="message in messages | orderBy:lastMessage">
-        <a href="#" class="row list-group-item message-list">
-            <span class="col-sm-1 star glyphicon glyphicon-star-empty"></span>
-            <span class="col-sm-2 name ellipsize">{{ message.lastSender.name }}</span>
-            <span class="row col-sm-6">
-                <span class="col-md-5 col-sm-12 title ellipsize">{{ message.displayName }}</span>
-                <span class="col-md-7 col-sm-12 content text-muted ellipsize">{{message.messages[0].name }}</span>
-            </span>
-            <span class="col-sm-2 date badge">{{ message.lastUpdated | date : 'mediumDate' }}</span>
-            <span class="col-sm-1 pull-right">
-                <span class="attachment glyphicon glyphicon-paperclip"></span>
-            </span>
+        <a href="#" class="list-group-item message-list">
+            <div class="row">
+                    <span class="col-xs-1 glyphicon star glyphicon-star-empty"></span>
+                    <span ng-show="{{ message.lastSender.name.length }}" class="col-xs-6 col-md-3 col-lg-2 ellipsize">{{ message.lastSender.name }}</span>
+                    <span ng-hide="{{ message.lastSender.name.length }}" class="col-xs-6 col-md-3 col-lg-2 ellipsize">(System message)</span>
+
+                    <span class="col-xs-1 col-md-push-7 col-lg-push-8 attachment glyphicon glyphicon-paperclip"></span>
+
+                    <span class="col-xs-3 col-md-2 col-lg-1 col-md-push-4 col-lg-push-6 badge">{{ message.lastUpdated | date : 'mediumDate' }}</span>
+
+                    <span class="col-xs-12 col-md-4 col-lg-3 col-md-pull-4 col-lg-pull-2 ellipsize">{{ message.displayName }}</span>
+                    <span class="col-xs-12 col-md-9 col-lg-4 col-md-offset-3 col-lg-offset-0 col-lg-pull-2 ellipsize">{{ message.messages[0].name }}</span>
+            </div>
         </a>
-</div> <!-- /container -->
+    </div>
+</div>
 </body>
 </html>

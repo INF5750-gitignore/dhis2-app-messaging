@@ -8,104 +8,10 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    line-height: 1.1em;
+    line-height: 1.3em;
     position: relative;
-}
-
-.message-list .star {
-    display: inline-block;
-    font-size: 20px;
-    vertical-align: middle;
-    text-align: center;
 }
 
 .message-list .star:hover {
     color: #CCC;
 }
-
-.message-list .name {
-    vertical-align: middle;
-    display: inline-block;
-}
-
-.message-list .title {
-    vertical-align: middle;
-    text-align: left;
-}
-
-.message-list .date {
-}
-
-.message-list .attachment {
-    text-align: center;
-    font-size: 20px;
-    width: 3%;
-}
-
-/*
-.nav-tabs .glyphicon:not(.no-margin) {
-    margin-right: 0.5em;
-}
-
-.tab-pane .list-group-item:first-child {
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
-}
-
-.tab-pane .list-group-item:last-child {
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-}
-
-.tab-pane .list-group .checkbox {
-    display: inline-block;
-    margin: 0;
-}
-
-.tab-pane .list-group input[type="checkbox"] {
-    margin-top: -15px;
-}
-
-.tab-pane .list-group .glyphicon {
-    margin-right: 5px;
-}
-
-.tab-pane .list-group .glyphicon:hover {
-    color: #FFBC00;
-}
-
-a.list-group-item.read {
-    color: #222;
-    background-color: #F3F3F3;
-}
-
-hr {
-    margin-top: 5px;
-    margin-bottom: 10px;
-}
-
-.nav-pills > li > a {
-    padding: 5px 10px;
-}
-
-.trim {
-    display: inline-block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    line-height: 15px;
-    position: relative;
-}
-
-.name {
-    max-width: 10%;
-}
-
-.title {
-    max-width: 40%;
-}
-
-.content {
-    max-width: 20%;
-}
-*/
