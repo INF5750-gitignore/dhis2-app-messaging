@@ -11,8 +11,8 @@
     "128": "/img/icons/icon-128.png"
   },
   "developer": {
-    "name": "Jean-Charles Leneveu & Bastien de la Selle",
-    "url": "http://dhis.leneveu.fr"
+    "name": "Jean-Charles Leneveu, Bastien de la Selle & Øystein Dale",
+    "url": "https://github.com/INF5750-gitignore/dhis2-app-messaging"
   },
   "default_locale": "en",
   "activities": {
