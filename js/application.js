@@ -14,7 +14,7 @@ app.controller('ShowAllMessages', function($scope, Dhis) {
 });
 
 // Dhis constructor function to encapsulate HTTP and pagination logic
-app.factory('Dhis', function($http) {
+app.factory('Dhis', function($http, $timeout) {
 
     $http.defaults.headers.common.Authorization = make_base_auth("admin", "district");
 
@@ -36,7 +36,8 @@ app.factory('Dhis', function($http) {
                 this.messages = this.messages.concat(data.messageConversations);
                 this.page++;
             }
-            this.busy = false;
+            var that = this;
+            $timeout(function(){that.busy = false}, 200);
         }.bind(this));
     };
 
