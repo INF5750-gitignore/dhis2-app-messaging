@@ -1,7 +1,7 @@
 <div class="container">
     <h1 id="messages">Messages</h1>
     <div ng-repeat="message in messages | orderBy:'lastUpdated':true">
-        <a href="#msg/{{ message.id }}" class="list-group-item message-list">
+        <a href="#msg/{{ message.id }}" class="list-group-item message-list" ng-class="{unread: message.read == false}">
             <div class="row">
                     <span class="col-xs-1 glyphicon star glyphicon-star-empty"></span>
                     <span ng-show="{{ message.lastSender.name.length }}" class="col-xs-6 col-md-3 col-lg-2 ellipsize">{{ message.lastSender.name }}</span>

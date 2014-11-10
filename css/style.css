@@ -15,3 +15,7 @@ body {
 .message-list .star:hover {
     color: #CCC;
 }
+
+.unread {
+    font-weight: bold;
+}
