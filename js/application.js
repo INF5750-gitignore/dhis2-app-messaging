@@ -35,7 +35,7 @@ app.controller('ShowMessage', function($scope, $routeParams) {
         },
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', make_base_auth("admin", "district"));
-        },
+        }
     });
 
 });
