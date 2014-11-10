@@ -17,7 +17,7 @@
   "default_locale": "en",
   "activities": {
     "dhis": {
-      "href": "*"
+      "href": "http://inf5750-8.uio.no/"
     }
   }
 }
