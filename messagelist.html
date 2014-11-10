@@ -3,7 +3,10 @@
     <div ng-repeat="message in messages | orderBy:'created':true">
         <a href="#msg/{{ message.id }}" class="list-group-item message-list" ng-class="{unread: message.read == false}">
             <div class="row">
-                <span class="col-xs-1 glyphicon star glyphicon-star-empty"> ({{message.messageCount}})</span>
+                <span class="col-xs-1">
+                    <span class="glyphicon star" ng-class="{'glyphicon-star-empty': message.followUp == false, 'glyphicon-star': message.followUp}"></span>
+                    ({{message.messageCount}})
+                </span>
                 <span ng-show="{{ message.lastSenderFirstname.length }}" class="col-xs-6 col-md-3 col-lg-2 ellipsize">{{ message.lastSenderFirstname }} {{ message.lastSenderSurname }}</span>
                 <span ng-hide="{{ message.lastSenderFirstname.length }}" class="col-xs-6 col-md-3 col-lg-2 ellipsize">(System message)</span>
 

@@ -19,3 +19,7 @@ body {
 .unread {
     font-weight: bold;
 }
+
+.glyphicon-star {
+    color:#dddd00;
+}
