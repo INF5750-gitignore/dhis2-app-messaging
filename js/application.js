@@ -10,7 +10,7 @@ function make_base_auth(user, password) {
 
 app.controller('ShowAllMessages', function ($scope) {
     $.ajax({
-        url: "http://inf5750-8.uio.no/api/messageConversations.json?paging=true&fields=id,displayName,followUp,lastSenderSurname,lastSenderFirstname,messages,read,lastUpdated",
+        url: "http://inf5750-8.uio.no/api/messageConversations.json?paging=false&fields=id,displayName,followUp,lastSenderSurname,lastSenderFirstname,messages,read,lastUpdated",
         type: 'GET',
         dataType: 'json',
         async: false,
