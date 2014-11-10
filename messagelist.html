@@ -1,15 +1,19 @@
 <div class="container">
     <h1 id="messages">Messages</h1>
-    <div ng-repeat="message in messages | orderBy:'lastUpdated':true">
+    <div ng-repeat="message in messages | orderBy:'created':true">
         <a href="#msg/{{ message.id }}" class="list-group-item message-list" ng-class="{unread: message.read == false}">
             <div class="row">
-                <span class="col-xs-1 glyphicon star glyphicon-star-empty"></span>
+                <span class="col-xs-1">
+                    <span class="glyphicon star" ng-class="{'glyphicon-star-empty': message.followUp == false, 'glyphicon-star': message.followUp}"></span>
+                    ({{message.messageCount}})
+                </span>
                 <span ng-show="{{ message.lastSenderFirstname.length }}" class="col-xs-6 col-md-3 col-lg-2 ellipsize">{{ message.lastSenderFirstname }} {{ message.lastSenderSurname }}</span>
                 <span ng-hide="{{ message.lastSenderFirstname.length }}" class="col-xs-6 col-md-3 col-lg-2 ellipsize">(System message)</span>
 
                 <span class="col-xs-1 col-md-push-7 col-lg-push-8 attachment glyphicon glyphicon-paperclip"></span>
 
-                <span class="col-xs-3 col-md-2 col-lg-1 col-md-push-4 col-lg-push-6 badge">{{ message.lastUpdated | date : 'dd MMM yyyy' }}</span>
+                <span class="col-xs-3 col-md-2 col-lg-1 col-md-push-4 col-lg-push-6 badge">{{ message.created | date : 'dd MMM yyyy' }}</span>
+
 
                 <span class="col-xs-12 col-md-4 col-lg-3 col-md-pull-4 col-lg-pull-2 ellipsize">{{ message.displayName }}</span>
                 <span class="col-xs-12 col-md-9 col-lg-4 col-md-offset-3 col-lg-offset-0 col-lg-pull-2 ellipsize">{{ message.messages[0].name }}</span>
