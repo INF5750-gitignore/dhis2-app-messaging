@@ -1,0 +1,61 @@
+CACHE MANIFEST
+
+CACHE:
+
+# Core pages
+/manifest.webapp
+/message.html
+/messagelist.html
+/README.md
+/index.html
+
+# CSS
+/css/bootstrap.css
+/css/bootstrap.css.map
+/css/bootstrap.min.css
+/css/bootstrap-theme.css
+/css/bootstrap-theme.css.map
+/css/bootstrap-theme.min.css
+/css/font-awesome.css
+/css/font-awesome.min.css
+/css/style.css
+
+# Fonts
+/fonts/FontAwesome.otf
+/fonts/fontawesome-webfont.eot
+/fonts/fontawesome-webfont.svg
+/fonts/fontawesome-webfont.ttf
+/fonts/fontawesome-webfont.woff
+/fonts/glyphicons-halflings-regular.eot
+/fonts/glyphicons-halflings-regular.svg
+/fonts/glyphicons-halflings-regular.ttf
+/fonts/glyphicons-halflings-regular.woff
+
+# Img
+/img/icons/
+/img/icons/icon-128.png
+/img/icons/icon-16.png
+/img/icons/icon-32.png
+/img/icons/icon-48.png
+/img/icons/icon-64.png
+
+#Js
+/js/angularjs/angular.min.js
+/js/angularjs/angular.min.js.map
+/js/angularjs/angular-resource.min.js
+/js/angularjs/angular-resource.min.js.map
+/js/angularjs/angular-route.min.js
+/js/angularjs/angular-route.min.js.map
+/js/angularjs/ng-infinite-scroll.js
+/js/angularjs/ng-infinite-scroll.min.js
+/js/application.js
+/js/bootstrap/bootstrap.js
+/js/bootstrap/bootstrap.min.js
+/js/init.js
+/js/jquery/jquery-1.11.1.min.map
+/js/jquery/jquery.js
+/js/jquery/jquery.min.js
+/js/services.js
+
+NETWORK:
+*
