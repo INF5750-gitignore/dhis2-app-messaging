@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
-<!--<html manifest="cache.manifest">-->
+<!--
+    <html manifest="cache.manifest">
+-->
 <head lang="en">
     <!-- Language -->
     <meta charset="UTF-8">
@@ -26,12 +28,19 @@
     <script src="js/init.js"></script>
     <script src="js/jquery/jquery.min.js"></script>
     <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.js"></script>-->
     <script src="js/angularjs/angular.min.js"></script>
     <script src="js/angularjs/angular-route.min.js"></script>
     <script src="js/angularjs/angular-resource.min.js"></script>
-    <script src="js/angularjs/ng-infinite-scroll.js"></script>
+    <script src="js/ng-infinite-scroll/ng-infinite-scroll.js"></script>
+    <script src="js/angular-cached-resource/angular-cached-resource.js"></script>
     <script src="js/services.js"></script>
     <script src="js/application.js"></script>
+    <script src="js/routes.js"></script>
+
+    <!-- Make sure these templates are available offline -->
+    <script type="text/ng-template" src="message.html"></script>
+    <script type="text/ng-template" src="messagelist.html"></script>
 </head>
 
 <body ng-app="app">

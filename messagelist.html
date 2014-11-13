@@ -1,5 +1,7 @@
 <div class="container" infinite-scroll='dhis.nextPage()' infinite-scroll-disabled='dhis.busy' infinite-scroll-distance='1'>
-    <h1 id="messages">Messages</h1>
+<h1 ng-show="online" id="messages">Messages</h1>
+<h1 ng-hide="online" id="messages">Messages (offline)</h1>
+<a ng-click="offline()">Offline</a>
     <div ng-repeat="message in dhis.messages | orderBy:'created':true">
         <a href="#msg/{{ message.id }}" class="list-group-item message-list" ng-class="{unread: message.read == false}">
             <div class="row">
