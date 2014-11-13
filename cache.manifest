@@ -46,8 +46,8 @@ js/angularjs/angular-resource.min.js
 js/angularjs/angular-resource.min.js.map
 js/angularjs/angular-route.min.js
 js/angularjs/angular-route.min.js.map
-js/angularjs/ng-infinite-scroll.js
-js/angularjs/ng-infinite-scroll.min.js
+js/ng-infinite-scroll/ng-infinite-scroll.js
+js/ng-infinite-scroll/ng-infinite-scroll.min.js
 js/application.js
 js/bootstrap/bootstrap.js
 js/bootstrap/bootstrap.min.js
