@@ -55,6 +55,10 @@ app.factory('Message', function($cachedResource) {
     return $cachedResource('message', dhisAPI + '/api/messageConversations/:id.json?fields=*', {id: "@id"});
 });
 
+app.factory('MessageDetails', function($cachedResource) {
+    return $cachedResource('messageDetails', dhisAPI + '/api/messageConversations/:id/messages.json?fields=*', {id: "@id"});
+});
+
 app.factory('MessagePage', function($cachedResource) {
     return $cachedResource(
             'page',
@@ -104,9 +108,13 @@ app.factory('Dhis', function($http, $timeout, MessagePage) {
     return Dhis;
 });
 
-app.controller('ShowMessage', function($scope, $routeParams, $cachedResource, Message) {
+app.controller('ShowMessage', function($scope, $routeParams, $cachedResource, Message, MessageDetails) {
     Message.get({id:$routeParams.msgId}, function(message) {
         $scope.conversation = message;
+    });
+
+    MessageDetails.get({id:$routeParams.msgId}, function(messageDetails) {
+        $scope.conversationDetails = messageDetails;
     });
 });
 

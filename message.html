@@ -1,12 +1,25 @@
 
+<div class="row">
+	<span class="col-xs-4"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button></span>
+	<span class="col-xs-4"><button type="button" class="btn btn-default">Mark unread</button></span>
+	<span class="col-xs-4"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span> Delete</button></span>
+
+
+</div>
+
 
 <h2>{{ conversation.displayName }}</h2>
 
-<h3>{{conversation.lastSender.name}}</h3>
-
-<ul ng-repeat="message in conversation.messages" class="multipleMessages">
+<ul ng-repeat="message in conversationDetails.messages" class="multipleMessages">
     <li class="singleMessage">
-    	<div>{{message.created}}
-        <div ng-bind-html="message.name"></div>
+    	<div class="sender">{{message.sender.name}}</div>
+    	<div class="messageTime">{{message.created | date : 'HH:mm dd MMM yyyy'}}
+        <div ng-bind-html="message.text" class="messageContent"></div>
     </li>
 </ul>
+
+<div class="replyFields">
+<textarea rows="4" cols="50">
+</textarea><br>
+<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-send"></span> Reply</button>
+</div>
