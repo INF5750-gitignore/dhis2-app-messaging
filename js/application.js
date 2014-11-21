@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('app', ['ngRoute', 'infinite-scroll', 'ngCachedResource']);
+var app = angular.module('app', ['ngRoute', 'infinite-scroll', 'ngCachedResource', 'ngSanitize']);
 
 function make_base_auth(user, password) {
     var tok = user + ':' + password;

@@ -1,7 +1,12 @@
+
+
 <h2>{{ conversation.displayName }}</h2>
 
-<ul ng-repeat="message in conversation.messages">
-    <li>
-        <div>{{ message.name }}</div>
+<h3>{{conversation.lastSender.name}}</h3>
+
+<ul ng-repeat="message in conversation.messages" class="multipleMessages">
+    <li class="singleMessage">
+    	<div>{{message.created}}
+        <div ng-bind-html="message.name"></div>
     </li>
 </ul>
