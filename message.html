@@ -1,31 +1,48 @@
 
 <div class="conversationContainer">
 
-<div class="messageControlPanel">
-	<a href="">
-		<button type="button" class="btn btn-default">Back</button>
-	</a>
-	<button type="button" class="btn btn-default">Mark unread</button>
-	<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+	<div class="messageControlPanel">
+		<a href="#all">
+			<button type="button" class="btn btn-default">Back</button>
+		</a>
+		<button type="button" class="btn btn-default">Mark unread</button>
+		<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button>
 
 
-</div>
+	</div>
+
+	<div>
+		<h2 class="messageTitle">{{ conversation.displayName }}</h2> 
+		<button type="button" class="btn btn-primary" id="replyButton">Reply</button>
+	</div>
 
 
-<h2>{{ conversation.displayName }}</h2>
+	<div id="replyFields" class="replyFields">
+		<textarea class="replyTextArea"></textarea><br>
+		<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-send"></span> Send</button>
+	</div>
 
-<ul ng-repeat="message in conversationDetails.messages" class="multipleMessages">
-    <li class="singleMessage">
-    	<div class="sender">{{message.sender.name}}</div>
-    	<div class="messageTime">{{message.created | date : 'HH:mm dd MMM yyyy'}}</div>
-        <div ng-bind-html="message.text" class="messageContent"></div>
-    </li>
+
+<ul ng-repeat="message in conversationDetails.messages | orderBy:'created':true" class="multipleMessages">
+	<li class="singleMessage">
+		<div class="sender">{{message.sender.name}}</div>
+		<div class="messageTime">{{message.created | date : 'HH:mm dd MMM yyyy'}}</div>
+		<div ng-bind-html="message.text" class="messageContent"></div>
+	</li>
 </ul>
 
-<div class="replyFields">
-<textarea class="replyTextArea">
-</textarea><br>
-<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-send"></span> Reply</button>
-</div>
 
-</div>
+
+
+
+
+
+<script type="text/javascript">
+
+$("#replyFields").hide();
+
+$("#replyButton").click(function(){
+	$("#replyFields").toggle(100);
+});
+
+</script>
