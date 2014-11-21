@@ -58,5 +58,46 @@ body {
     display:block;
     height:100%;
     width:100%;
-    text-decoration: none;
+    222text-decoration: none;
+}
+
+/* Message page */
+
+.conversationContainer{
+
+    margin: auto;
+    max-width: 800px;
+    padding:20px;
+}
+
+.messageControlPanel{
+
+    text-align: left;
+}
+
+.singleMessage{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.sender{
+
+    display: inline;
+    font-size: 100% ;
+    font-weight: bold;
+}
+.messageTime{
+    display: inline;
+    color: grey;
+}
+
+.messageContent{
+    margin-top:10px;
+}
+
+.multipleMessages
+{
+    list-style: none;
+    padding-left: 0px;
+
 }
