@@ -2,7 +2,9 @@
 <div class="conversationContainer">
 
 <div class="messageControlPanel">
-	<button type="button" class="btn btn-default">Back</button>
+	<a href="">
+		<button type="button" class="btn btn-default">Back</button>
+	</a>
 	<button type="button" class="btn btn-default">Mark unread</button>
 	<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button>
 
@@ -17,12 +19,11 @@
     	<div class="sender">{{message.sender.name}}</div>
     	<div class="messageTime">{{message.created | date : 'HH:mm dd MMM yyyy'}}</div>
         <div ng-bind-html="message.text" class="messageContent"></div>
-        <hr>
     </li>
 </ul>
 
 <div class="replyFields">
-<textarea rows="4" cols="50">
+<textarea class="replyTextArea">
 </textarea><br>
 <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-send"></span> Reply</button>
 </div>
