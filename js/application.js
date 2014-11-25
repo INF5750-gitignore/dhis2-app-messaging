@@ -16,8 +16,19 @@ app.controller('ShowAllMessages', function($scope, $cachedResource, $filter, Mes
         // TODO: Add some limit
         for(var i = 0; i < msgs.length; i++) {
             MessageDetails.get({id: msgs[i].id});
+
         }
+
     });
+
+    //filter the displayed messages
+    $scope.filters= [
+        {name:"all", id:0, display:"All Messages"}, 
+        {name:"follow", id:1, display:"Follow-Up"},
+        {name:"unread", id:2, display:"Unread"}];
+
+    $scope.messageFilter=$scope.filters[0];
+    
 
     $scope.getName = function(msg) {
         if (msg.lastSender) {
@@ -134,4 +145,41 @@ app.run(function($window, $rootScope) {
           $rootScope.online = true;
         });
       }, false);
+});
+
+
+app.filter('filterMessageDisplay', function() {
+  return function( items, messageFilter) {
+    var filtered = [];
+    
+    if(messageFilter.name=="all")
+    {
+        angular.forEach(items, function(item){
+            filtered.push(item);
+        });
+    }
+
+    if(messageFilter.name=="follow")
+    {
+        angular.forEach(items, function(item){
+
+            if(item.followUp == true)
+            {
+                filtered.push(item);
+            }
+        });
+    }
+
+    if(messageFilter.name=="unread")
+    {
+        angular.forEach(items, function(item){
+
+            if(item.read == false)
+            {
+                filtered.push(item);
+            }
+        });
+    }
+    return filtered;
+  };
 });

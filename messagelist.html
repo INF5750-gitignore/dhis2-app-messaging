@@ -4,8 +4,17 @@
         <div ng-hide="online" class="col-xs-12 col-md-7" id="messageListTitle">Messages (offline)</div>
         <input class="col-xs-12 col-md-5" type="text" id="searchBox" ng-model="searchText"></input>
     </div>
+
+
+    <div class="messageControlPanel">
+
+		<button type="button" class="btn btn-default">Mark unread</button>
+		<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+
+		<select class="form-control messageFilterSelect" ng-model="messageFilter" ng-options="filter.display for filter in filters"></select>
+	</div>
     <!-- <div ng-repeat="page in dhis.pages"> -->
-        <div ng-repeat="message in messages | filter: searchFilter | orderBy:'created':true">
+        <div ng-repeat="message in messages | filter: searchFilter | orderBy:'created':true | filterMessageDisplay:messageFilter">
             <!-- <a href="#msg/{{ message.id }}" class="list-group-item message-list" ng-class="{unread: message.read == false}"> -->
             <div class="row list-group-item message-list" ng-class="{unread: message.read == false}">
 
@@ -34,6 +43,7 @@
             <!-- </a> -->
             <!-- </div> -->
     </div>
+
 	<div ng-show="dhis.busy" class="loader">
 		<span class="glyphicon glyphicon-refresh btn-lg spin"></span> Loading...
 	</div>
