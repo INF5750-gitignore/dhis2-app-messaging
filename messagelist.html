@@ -1,9 +1,21 @@
 <div class="container" infinite-scroll='dhis.nextPage()' infinite-scroll-disabled='dhis.busy' infinite-scroll-distance='1'>
-	<h1 ng-show="online" id="messages">Messages</h1>
-	<h1 ng-hide="online" id="messages">Messages (offline)</h1>
+	<h1 ng-show="online" id="messages">Inbox</h1>
+	<h1 ng-hide="online" id="messages">Inbox (offline)</h1>
 	<a ng-click="offline()">Offline</a>
-	<div ng-repeat="message in dhis.messages | orderBy:'created':true">
-		<!-- <a href="#msg/{{ message.id }}" class="list-group-item message-list" ng-class="{unread: message.read == false}"> -->
+
+	<div class="messageControlPanel">
+		<button type="button" class="btn btn-default" ng-click="offline()">Offline</button>
+		<button type="button" class="btn btn-default">Mark unread</button>
+		<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+
+		<select class="form-control messageFilterSelect" ng-model="messageFilter" ng-options="filter.display for filter in filters"></select>
+
+
+	</div>
+
+	<div ng-repeat="message in dhis.messages | orderBy:'created':true | filterMessageDisplay:messageFilter">
+
+
 		<div class="row list-group-item message-list" ng-class="{unread: message.read == false}">
 
 			<span class="col-xs-1 col-lg-1">
@@ -28,7 +40,7 @@
 
 
 		</div>
-		<!-- </a> -->
+
 	</div>
 	<div ng-show="dhis.busy" class="loader">
 		<span class="glyphicon glyphicon-refresh btn-lg spin"></span> Loading...

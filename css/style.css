@@ -113,3 +113,8 @@ body {
     margin-top:10px;
     margin-bottom: 10px;
 }
+
+.messageFilterSelect{
+    width: 150px;
+    display: inline;
+}
