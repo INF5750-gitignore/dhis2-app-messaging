@@ -8,114 +8,118 @@ function make_base_auth(user, password) {
     return 'Basic ' + hash;
 }
 
-app.controller('ShowAllMessages', function($scope, $cachedResource, Dhis, Message, MessagePage) {
-    $scope.dhis = new Dhis();
-    $scope.dhis.nextPage();
+app.controller('ShowAllMessages', function($scope, $cachedResource, $filter, Message, MessageDetails) {
+    var msgs = Message.all();
+    $scope.messages = msgs;
 
-    $scope.offline = function() {
-        console.log("Offlining messages...");
-        // Message.$clearCache();
-        $cachedResource.clearCache();
-
-        var date = new Date();
-        var limit = date.getTime();
-        limit -= 1000*3600*24*30*6; // 6 months -> msec
-        date.setTime(limit);
-        console.log(date.toISOString());
-
-        var getPage = function(page) {
-            var remainingPages = 0;
-            MessagePage.get({page:page}, function(data) {
-                var messages = data.messageConversations;
-                console.log("Getting page: ", data.pager.page);
-
-                var stop = false;
-
-                for(var i = 0; i < messages.length; i++) {
-                    Message.get({id: messages[i].id});
-                    console.log("Getting message: ", messages[i].id);
-
-                    if (!stop && messages[i].created < date.toISOString()) {
-                        console.log("Message is too old!");
-                        stop = true;
-                    }
-                }
-
-                if (!stop && data.pager.pageCount > data.pager.page) {
-                    getPage(page+1);
-                }
-            });
+    msgs.$httpPromise.then(function() {
+        // TODO: Add some limit
+        for(var i = 0; i < msgs.length; i++) {
+            MessageDetails.get({id: msgs[i].id});
         }
+    });
 
-        getPage(1);
+    $scope.getName = function(msg) {
+        if (msg.lastSender) {
+            return msg.lastSender.name;
+        } else {
+            return msg.lastSenderFirstname + " " + msg.lastSenderSurname;
+        }
+    }
+
+    $scope.searchText = "";
+
+    $scope.searchFilter = function(msg) {
+        if ($scope.searchText === "") return true;
+        if (msg.displayName.toLowerCase().indexOf($scope.searchText.toLowerCase()) >= 0) return true;
+        if ($scope.getName(msg).toLowerCase().indexOf($scope.searchText.toLowerCase()) >= 0) return true;
+        if ($filter('date')(msg.created, 'dd MMM yyyy').toLowerCase().indexOf($scope.searchText.toLowerCase()) >= 0) return true;
+        return false;
     }
 });
 
-app.factory('Message', function($cachedResource) {
-    return $cachedResource('message', dhisAPI + '/api/messageConversations/:id.json?fields=*', {id: "@id"});
+var msgFields="id,displayName,read,lastSender,lastSenderFirstname,lastSenderSurname,followUp,created,messageCount";
+
+app.factory('Message', function($cachedResource, $http) {
+    return $cachedResource('message', "/api/messageConversations/:id.json?paging=false", {id: "@id"}, {
+        'get': {
+            method: 'GET',
+            params: {
+                id: "@id",
+            },
+            url: dhisAPI + '/api/messageConversations/:id.json?fields=' + msgFields,
+            transformResponse: function(data) {
+                var msg = angular.fromJson(data);
+                msg.read = true; // TODO: BUG: This API endpoint always returns messages as unread
+                return msg;
+            }
+        },
+        'all': {
+            method: 'GET',
+            url: dhisAPI + 'api/messageConversations.json?paging=false&fields=' + msgFields,
+            isArray: true,
+            transformResponse: function(data) {
+                return angular.fromJson(data).messageConversations;
+            }
+        },
+    });
 });
+
+var markRead = function(msg, $http) {
+    $http({
+        method: 'POST',
+        url: dhisAPI + 'api/messageConversations/read',
+        transformRequest: function(data) {
+            return "[\""+msg.id+"\"]";
+        },
+        transformResponse: [],
+    });
+}
+
+var markUnread = function(msg, $http) {
+    $http({
+        method: 'POST',
+        url: dhisAPI + 'api/messageConversations/unread',
+        transformRequest: function(data) {
+            return "[\""+msg.id+"\"]";
+        },
+        transformResponse: [],
+    });
+}
 
 app.factory('MessageDetails', function($cachedResource) {
     return $cachedResource('messageDetails', dhisAPI + '/api/messageConversations/:id/messages.json?fields=*', {id: "@id"});
 });
 
-app.factory('MessagePage', function($cachedResource) {
-    return $cachedResource(
-            'page',
-            dhisAPI + 'api/messageConversations.json?paging=true&pageSize=:pageSize&page=:page&fields=:fields&filter=:filter',
-            {
-                page: "@page",
-                pageSize: 10,
-                fields: "*",
-                filter: "@filter"
-            });
-});
+app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResource, $location, Message, MessageDetails) {
+    var msg = Message.get({id:$routeParams.msgId});
 
-// Dhis constructor function to encapsulate HTTP and pagination logic
-app.factory('Dhis', function($http, $timeout, MessagePage) {
-
-    $http.defaults.headers.common.Authorization = make_base_auth("admin", "district");
-
-    var Dhis = function() {
-        this.messages = [];
-        this.busy = false;
-        this.after = '';
-        this.page = 1;
-    };
-
-    Dhis.prototype.nextPage = function() {
-        if (this.busy) return;
-        console.log("loading page #" + this.page);
-        this.busy = true;
-
-        // Only show spinner for a short while when offline
-        if (!navigator.onLine) {
-            $timeout(function(){this.busy = false;}.bind(this), 1000);
-        }
-
-        MessagePage.get({page:this.page},
-                function(data) {
-                    if(this.page <= data.pager.pageCount) {
-                        this.messages = this.messages.concat(data.messageConversations);
-                        this.page++;
-                    }
-                    var that = this;
-                    $timeout(function(){that.busy = false;}, 200);
-                }.bind(this)
-                );
-    };
-
-    return Dhis;
-});
-
-app.controller('ShowMessage', function($scope, $routeParams, $cachedResource, Message, MessageDetails) {
-    Message.get({id:$routeParams.msgId}, function(message) {
-        $scope.conversation = message;
+    msg.$httpPromise.then(function() {
+        $scope.conversation = msg;
     });
 
-    MessageDetails.get({id:$routeParams.msgId}, function(messageDetails) {
-        $scope.conversationDetails = messageDetails;
-    });
+    var details = MessageDetails.get({id:$routeParams.msgId});
+    details.$httpPromise.then(function() {
+        $scope.conversationDetails = details;
+    })
+
+    if (!msg.read) {
+        markRead(msg, $http);
+    }
+
+    $scope.markUnread = function() {
+        markUnread(msg, $http);
+        msg.read = false;
+
+        $location.path("/all");
+    }
+
+    $scope.send = function() {
+        // TODO
+    }
+
+    $scope.conversation = msg;
+    $scope.conversationDetails = details;
 });
 
 app.run(function($window, $rootScope) {

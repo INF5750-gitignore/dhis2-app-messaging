@@ -4,6 +4,20 @@ body {
     background: #F2F4F7;
 }
 
+.header {
+    vertical-align: bottom;
+}
+
+#messageListTitle {
+    font-size: 3em;
+    font-weight: 500;
+}
+
+#searchBox {
+    float: right;
+    margin-top: 1.5em;
+}
+
 .ellipsize {
     display: inline-block;
     overflow: hidden;
@@ -59,7 +73,7 @@ body {
     display:block;
     height:100%;
     width:100%;
-    222text-decoration: none;
+    text-decoration: none;
 }
 
 /* Message page */

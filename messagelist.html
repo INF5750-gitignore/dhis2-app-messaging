@@ -1,35 +1,39 @@
-<div class="container" infinite-scroll='dhis.nextPage()' infinite-scroll-disabled='dhis.busy' infinite-scroll-distance='1'>
-	<h1 ng-show="online" id="messages">Messages</h1>
-	<h1 ng-hide="online" id="messages">Messages (offline)</h1>
-	<a ng-click="offline()">Offline</a>
-	<div ng-repeat="message in dhis.messages | orderBy:'created':true">
-		<!-- <a href="#msg/{{ message.id }}" class="list-group-item message-list" ng-class="{unread: message.read == false}"> -->
-		<div class="row list-group-item message-list" ng-class="{unread: message.read == false}">
+<div class="container">
+    <div class="row header">
+        <div ng-show="online" class="col-xs-12 col-md-7" id="messageListTitle">Messages</div>
+        <div ng-hide="online" class="col-xs-12 col-md-7" id="messageListTitle">Messages (offline)</div>
+        <input class="col-xs-12 col-md-5" type="text" id="searchBox" ng-model="searchText"></input>
+    </div>
+    <!-- <div ng-repeat="page in dhis.pages"> -->
+        <div ng-repeat="message in messages | filter: searchFilter | orderBy:'created':true">
+            <!-- <a href="#msg/{{ message.id }}" class="list-group-item message-list" ng-class="{unread: message.read == false}"> -->
+            <div class="row list-group-item message-list" ng-class="{unread: message.read == false}">
 
-			<span class="col-xs-1 col-lg-1">
-				<span class="glyphicon star" ng-class="{'glyphicon-star-empty': message.followUp == false, 'glyphicon-star': message.followUp}"></span>
+                <span class="col-xs-1 col-lg-1">
+                    <span class="glyphicon star" ng-class="{'glyphicon-star-empty': message.followUp == false, 'glyphicon-star': message.followUp}"></span>
 
-			</span>
+                </span>
 
-			<span>
-				<a class="fillthespan" href="#msg/{{ message.id }}">
-					<span class="col-xs-7 col-lg-4">
+                <span>
+                    <a class="fillthespan" href="#msg/{{ message.id }}">
+                        <span class="col-xs-7 col-lg-4">
 
-						<span ng-show="{{ message.lastSenderFirstname.length }}" >{{ message.lastSenderFirstname }} {{ message.lastSenderSurname }}</span>
-						<span ng-hide="{{ message.lastSenderFirstname.length }}" >(System message)</span>
+                            <span ng-show="{{ getName(message).length }}" >{{ getName(message) }}</span>
+                            <span ng-hide="{{ getName(message).length }}" >(System message)</span>
 
-						<span>({{message.messageCount}})</span>
-					</span>
+                            <span>({{message.messageCount}})</span>
+                        </span>
 
-					<span class="col-xs-3 col-lg-2 col-lg-push-4">{{ message.created | date : 'dd MMM yyyy' }}</span>
-					<span class="col-xs-12 col-lg-5 col-lg-pull-4">{{ message.displayName }}</span>
-				</a>
-			</span>
+                        <span class="col-xs-3 col-lg-2 col-lg-push-4">{{ message.created | date : 'dd MMM yyyy' }}</span>
+                        <span class="col-xs-12 col-lg-5 col-lg-pull-4">{{ message.displayName }}</span>
+                    </a>
+                </span>
 
 
-		</div>
-		<!-- </a> -->
-	</div>
+            </div>
+            <!-- </a> -->
+            <!-- </div> -->
+    </div>
 	<div ng-show="dhis.busy" class="loader">
 		<span class="glyphicon glyphicon-refresh btn-lg spin"></span> Loading...
 	</div>
