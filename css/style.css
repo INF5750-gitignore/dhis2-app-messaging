@@ -5,7 +5,7 @@ body {
 }
 
 .header {
-    vertical-align: bottom;
+    display: inline-flex;
 }
 
 #messageListTitle {
@@ -13,10 +13,7 @@ body {
     font-weight: 500;
 }
 
-#searchBox {
-    float: right;
-    margin-top: 1.5em;
-}
+
 
 .ellipsize {
     display: inline-block;
@@ -129,7 +126,26 @@ body {
 }
 
 .messageFilterSelect{
-    width: 150px;
     display: inline;
 }
 
+#searchBox {
+    display: inline;
+}
+
+.dateDisplay{
+
+    padding: 0px;
+}
+
+.messageGlyph{
+    padding: 0px;
+    white-space:nowrap;
+
+}
+
+.totalUnread{
+
+    margin : auto;
+
+}

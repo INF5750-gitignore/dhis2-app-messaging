@@ -1,56 +1,73 @@
 <div class="container">
-    <div class="row header">
-        <div ng-show="online" class="col-xs-12 col-md-7" id="messageListTitle">Messages</div>
-        <div ng-hide="online" class="col-xs-12 col-md-7" id="messageListTitle">Messages (offline)</div>
-        <input class="col-xs-12 col-md-5" type="text" id="searchBox" ng-model="searchText"></input>
-    </div>
+	<div class="header">
+		<div ng-show="online"  id="messageListTitle">Messages <div class="badge totalUnread">{{(messages|filter:unreadMessages).length}}</div></div>
+		<div ng-hide="online"  id="messageListTitle">Messages (offline) <div class="badge">{{(messages|filter:unreadMessages).length}}</div></div>
 
-
-    <div class="messageControlPanel">
-
-		<button type="button" class="btn btn-default">Mark unread</button>
-		<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-
-		<select class="form-control messageFilterSelect" ng-model="messageFilter" ng-options="filter.display for filter in filters"></select>
 	</div>
-    <!-- <div ng-repeat="page in dhis.pages"> -->
-        <div ng-repeat="message in messages | filter: searchFilter | orderBy:'created':true | filterMessageDisplay:messageFilter">
-            <!-- <a href="#msg/{{ message.id }}" class="list-group-item message-list" ng-class="{unread: message.read == false}"> -->
-            <div class="row list-group-item message-list" ng-class="{unread: message.read == false}">
 
-                <span class="col-xs-1 col-lg-1">
-                    <span class="glyphicon star" ng-class="{'glyphicon-star-empty': message.followUp == false, 'glyphicon-star': message.followUp}"></span>
+	<div>
 
-                </span>
-
-                <span>
-                    <a class="fillthespan" href="#msg/{{ message.id }}">
-                        <span class="col-xs-7 col-lg-4">
-
-                            <span ng-show="{{ getName(message).length }}" >{{ getName(message) }}</span>
-                            <span ng-hide="{{ getName(message).length }}" >(System message)</span>
-
-                            <span>({{message.messageCount}})</span>
-                        </span>
-
-                        <span class="col-xs-3 col-lg-2 col-lg-push-4">{{ message.created | date : 'dd MMM yyyy' }}</span>
-                        <span class="col-xs-12 col-lg-5 col-lg-pull-4">{{ message.displayName }}</span>
-                    </a>
-                </span>
-
-
-            </div>
-            <!-- </a> -->
-            <!-- </div> -->
-    </div>
-
-	<div ng-show="dhis.busy" class="loader">
-		<span class="glyphicon glyphicon-refresh btn-lg spin"></span> Loading...
 	</div>
-	<div ng-hide="dhis.busy" class="loader">
-		<span class="btn-lg"></span>
+
+	<div class="row messageControlPanel">
+
+		<span class="btn-group col-xs-12 col-md-1">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Options</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="">Mark Read</a></li>
+				<li><a href="">Mark unead</a></li>
+				<li><a href="">Follow-Up</a></li>
+				<li><a href="">Stop Following</a></li>
+				<li class="divider"></li>
+				<li><a href="">Delete</a></li>
+			</ul>
+		</span>
+
+		<span class="col-xs-12 col-sm-3">
+			<select class="form-control messageFilterSelect" ng-model="messageFilter" ng-options="filter.display for filter in filters"></select>
+		</span>
+
+		<span class="col-xs-12 col-sm-3">
+			<input class="col-xs-12 form-control" type="text" id="searchBox" ng-model="searchText" placeholder="Search"></input>
+		</span>
+
 	</div>
-</div>
+	<!-- <div ng-repeat="page in dhis.pages"> -->
+	<div ng-repeat="message in messages | filter: searchFilter | orderBy:'created':true | filterMessageDisplay:messageFilter">
+
+		<div class="row list-group-item message-list" ng-class="{unread: message.read == false}">
+
+			<span class="col-xs-1 col-lg-1 messageGlyph">
+				<input  type="checkbox" value="{{ message.id }}"></input>
+				<span class="glyphicon star" ng-class="{'glyphicon-star-empty': message.followUp == false, 'glyphicon-star': message.followUp}"></span>
+
+			</span>
+
+			<span>
+				<a class="fillthespan" href="#msg/{{ message.id }}">
+					<span class="col-xs-7 col-lg-4 ellipsize">
+
+						<span ng-show="{{ getName(message).length }}" >{{ getName(message) }}</span>
+						<span ng-hide="{{ getName(message).length }}" >(System message)</span>
+
+						<span>({{message.messageCount}})</span>
+					</span>
+
+					<span class="col-xs-3 col-lg-2 col-lg-push-4 dateDisplay ellipsize">{{ message.created | date : 'dd MMM yyyy' }}</span>
+					<span class="col-xs-12 col-lg-5 col-lg-pull-4 ellipsize">{{ message.displayName }}</span>
+				</a>
+			</div>
+
+			<!-- </div> -->
+		</div>
+
+		<div ng-show="dhis.busy" class="loader">
+			<span class="glyphicon glyphicon-refresh btn-lg spin"></span> Loading...
+		</div>
+		<div ng-hide="dhis.busy" class="loader">
+			<span class="btn-lg"></span>
+		</div>
+	</div>
 
 
 <!-- <span ng-show="{{ message.lastSenderFirstname.length }}" class="col-xs-6 col-md-3 col-lg-2 ellipsize">{{ message.lastSenderFirstname }} {{ message.lastSenderSurname }}</span>
@@ -61,4 +78,4 @@
 
 <span class="col-xs-12 col-md-4 col-lg-3 col-md-pull-4 col-lg-pull-2 ellipsize">{{ message.displayName }}</span>
 <span class="col-xs-12 col-md-9 col-lg-4 col-md-offset-3 col-lg-offset-0 col-lg-pull-2 ellipsize">{{ message.messages[0].name }}</span>
- -->
+-->

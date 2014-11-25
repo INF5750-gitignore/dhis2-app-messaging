@@ -47,6 +47,15 @@ app.controller('ShowAllMessages', function($scope, $cachedResource, $filter, Mes
         if ($filter('date')(msg.created, 'dd MMM yyyy').toLowerCase().indexOf($scope.searchText.toLowerCase()) >= 0) return true;
         return false;
     }
+
+    $scope.unreadMessages = function(msg) {
+        if(msg.read==false)
+        {
+            return true;
+        }
+        return false;
+
+    }
 });
 
 var msgFields="id,displayName,read,lastSender,lastSenderFirstname,lastSenderSurname,followUp,created,messageCount";
