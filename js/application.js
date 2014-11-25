@@ -103,6 +103,10 @@ app.factory('MessageDetails', function($cachedResource) {
 });
 
 app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResource, $location, Message, MessageDetails) {
+    if (isDev) {
+        $http.defaults.headers.common.Authorization = make_base_auth("admin", "district");
+    }
+
     var msg = Message.get({id:$routeParams.msgId});
 
     msg.$httpPromise.then(function() {
