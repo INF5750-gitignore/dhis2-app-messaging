@@ -2,7 +2,7 @@
 <div class="conversationContainer">
 
 	<div class="messageControlPanel">
-        <a href="#all" type="button" class="btn btn-default">Back</a>
+		<a href="#all" type="button" class="btn btn-default">Back</a>
 		<button ng-click="markUnread()" type="button" class="btn btn-default">Mark as unread</button>
 		<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button>
 
@@ -21,16 +21,16 @@
 	</div>
 
 
-<ul ng-repeat="message in conversationDetails.messages | orderBy:'created':true" class="multipleMessages">
-	<li class="singleMessage">
-		<div class="sender">{{message.sender.name}}</div>
-		<div class="messageTime">{{message.created | date : 'HH:mm dd MMM yyyy'}}</div>
-		<div ng-bind-html="message.text" class="messageContent"></div>
-	</li>
-</ul>
+	<ul ng-repeat="message in conversationDetails.messages | orderBy:'created':true" class="multipleMessages">
+		<li class="singleMessage">
+			<div class="sender">{{message.sender.name}}</div>
+			<div class="messageTime">{{message.created | date : 'HH:mm dd MMM yyyy'}}</div>
+			<div ng-bind-html="message.text" class="messageContent"></div>
+		</li>
+	</ul>
 
 
-
+</div>
 
 
 

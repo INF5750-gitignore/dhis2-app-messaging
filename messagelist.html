@@ -1,11 +1,7 @@
-<div class="container">
+<div class="container" ng-controller="ShowAllMessages" id="rootElement">
 	<div class="header">
 		<div ng-show="online"  id="messageListTitle">Messages <div class="badge totalUnread">{{(messages|filter:unreadMessages).length}}</div></div>
 		<div ng-hide="online"  id="messageListTitle">Messages (offline) <div class="badge">{{(messages|filter:unreadMessages).length}}</div></div>
-
-	</div>
-
-	<div>
 
 	</div>
 
@@ -14,8 +10,8 @@
 		<span class="btn-group col-xs-12 col-md-1">
 			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Options</button>
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="">Mark Read</a></li>
-				<li><a href="">Mark unead</a></li>
+				<li><a href="" onclick="markAsRead()">Mark Read</a></li>
+				<li><a href="" onclick="markAsUnread()">Mark unread</a></li>
 				<li><a href="">Follow-Up</a></li>
 				<li><a href="">Stop Following</a></li>
 				<li class="divider"></li>
@@ -69,6 +65,37 @@
 		</div>
 	</div>
 
+</div>
+
+
+<script type="text/javascript">
+
+
+function markAsRead()
+{
+
+	var checkedValues = $('input:checkbox:checked').map(function() {
+		return this.value;
+	}).get();
+
+	for (i = 0; i < checkedValues.length; i++) { 
+		angular.element('#rootElement').scope().markReadID(checkedValues[i]);
+	}
+}
+
+function markAsUnread()
+{
+
+	var checkedValues = $('input:checkbox:checked').map(function() {
+		return this.value;
+	}).get();
+
+	for (i = 0; i < checkedValues.length; i++) { 
+		angular.element('#rootElement').scope().markUnreadID(checkedValues[i]);
+	}
+}
+
+</script>
 
 <!-- <span ng-show="{{ message.lastSenderFirstname.length }}" class="col-xs-6 col-md-3 col-lg-2 ellipsize">{{ message.lastSenderFirstname }} {{ message.lastSenderSurname }}</span>
 <span ng-hide="{{ message.lastSenderFirstname.length }}" class="col-xs-6 col-md-3 col-lg-2 ellipsize">(System message)</span>

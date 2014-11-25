@@ -8,7 +8,7 @@ function make_base_auth(user, password) {
     return 'Basic ' + hash;
 }
 
-app.controller('ShowAllMessages', function($scope, $cachedResource, $filter, Message, MessageDetails) {
+app.controller('ShowAllMessages', function($scope, $cachedResource, $filter, $http, Message, MessageDetails) {
     var msgs = Message.all();
     $scope.messages = msgs;
 
@@ -23,9 +23,9 @@ app.controller('ShowAllMessages', function($scope, $cachedResource, $filter, Mes
 
     //filter the displayed messages
     $scope.filters= [
-        {name:"all", id:0, display:"All Messages"}, 
-        {name:"follow", id:1, display:"Follow-Up"},
-        {name:"unread", id:2, display:"Unread"}];
+    {name:"all", id:0, display:"All Messages"}, 
+    {name:"follow", id:1, display:"Follow-Up"},
+    {name:"unread", id:2, display:"Unread"}];
 
     $scope.messageFilter=$scope.filters[0];
     
@@ -56,7 +56,40 @@ app.controller('ShowAllMessages', function($scope, $cachedResource, $filter, Mes
         return false;
 
     }
+
+    $scope.markReadID = function(id) {
+
+        console.log("plop");
+
+        $http({
+            method: 'POST',
+            url: dhisAPI + 'api/messageConversations/read',
+            transformRequest: function(data) {
+                return "[\""+id+"\"]";
+            },
+            transformResponse: [],
+        });
+    }
+
+    $scope.markUnreadID = function(id) {
+        $http({
+            method: 'POST',
+            url: dhisAPI + 'api/messageConversations/unread',
+            transformRequest: function(data) {
+                return "[\""+id+"\"]";
+            },
+            transformResponse: [],
+
+        });
+    }
+
+
+    $scope.testFunction = function(){
+
+        console.log("test function");
+    }
 });
+
 
 var msgFields="id,displayName,read,lastSender,lastSenderFirstname,lastSenderSurname,followUp,created,messageCount";
 
@@ -147,24 +180,24 @@ app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResou
 });
 
 app.run(function($window, $rootScope) {
-      $rootScope.online = navigator.onLine;
-      $window.addEventListener("offline", function () {
-        $rootScope.$apply(function() {
-          $rootScope.online = false;
-        });
-      }, false);
-      $window.addEventListener("online", function () {
-        $rootScope.$apply(function() {
-          $rootScope.online = true;
-        });
-      }, false);
+  $rootScope.online = navigator.onLine;
+  $window.addEventListener("offline", function () {
+    $rootScope.$apply(function() {
+      $rootScope.online = false;
+  });
+}, false);
+  $window.addEventListener("online", function () {
+    $rootScope.$apply(function() {
+      $rootScope.online = true;
+  });
+}, false);
 });
 
 
 app.filter('filterMessageDisplay', function() {
   return function( items, messageFilter) {
     var filtered = [];
-    
+
     if(messageFilter.name=="all")
     {
         angular.forEach(items, function(item){
@@ -194,5 +227,5 @@ app.filter('filterMessageDisplay', function() {
         });
     }
     return filtered;
-  };
+};
 });
