@@ -94,6 +94,21 @@ app.controller('ShowAllMessages', function($scope, $cachedResource, $filter, $ht
             }
         });
     }
+
+    $scope.delete = function()
+    {
+        if(confirm("Warning! Are you sure you want to delete the message?"))
+        {
+
+            for (var i = 0; i < $scope.messages.length; i++) {
+                var message = $scope.messages[i];
+                if (message._selected) {
+                    message.$delete();
+                }
+            }
+        }
+    }
+
 });
 
 var msgFields="id,displayName,read,lastSender,lastSenderFirstname,lastSenderSurname,followUp,created,messageCount";
@@ -152,9 +167,9 @@ app.factory('Message', function($cachedResource, $http) {
         }
     });
 
-    Message.prototype._selected = false;
+Message.prototype._selected = false;
 
-    return Message;
+return Message;
 });
 
 var markRead = function(msg, $http) {
@@ -179,12 +194,6 @@ var markUnread = function(msg, $http) {
     });
 }
 
-var deleteMessage = function(msg, $http){
-    $http({
-        method: 'DELETE',
-        url: dhisAPI + 'api/messageConversations/' + msg.id
-    });
-}
 
 //var msgDetailFields = "created,followUp,name,read,messageCount,displayName,lastSender,messages"
 var msgDetailFields = "*";
@@ -218,12 +227,15 @@ app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResou
     }
 
     $scope.delete = function() {
-        msg.$delete({}, function() {
-            Message.$clearCache({where: [{id: msg.id}]});
-            MessageDetails.$clearCache({where: [{id: msg.id}]});
+        if(confirm("Warning! Are you sure you want to delete the message?"))
+        {
+            msg.$delete({}, function() {
+                Message.$clearCache({where: [{id: msg.id}]});
+                MessageDetails.$clearCache({where: [{id: msg.id}]});
 
-            $location.path("/all");
-        });
+                $location.path("/all");
+            });
+        }
     }
 
     $scope.send = function() {
@@ -241,15 +253,6 @@ app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResou
             });
         });
 
-    }
-
-    $scope.deleteMessage = function(){
-
-        if(confirm("Warning! Are you sure you want to delete the message?"))
-        {
-            deleteMessage(msg, $http);
-            $location.path('/all');
-        }
     }
 
     $scope.conversation = msg;
