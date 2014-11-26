@@ -96,7 +96,6 @@ app.controller('ShowAllMessages', function($scope, $cachedResource, $filter, $ht
     }
 });
 
-
 var msgFields="id,displayName,read,lastSender,lastSenderFirstname,lastSenderSurname,followUp,created,messageCount";
 
 app.factory('Message', function($cachedResource, $http) {
@@ -131,7 +130,19 @@ app.factory('Message', function($cachedResource, $http) {
             transformResponse: function(data) {
                 return angular.fromJson(data).messageConversations;
             }
-        }
+        },
+        'reply': {
+            method: 'POST',
+            cached: false,
+            params: {
+                id: "@id",
+            },
+            url: dhisAPI + 'api/messageConversations/:id',
+            transformRequest: function(data) {
+                return JSON.stringify(data.message);
+            },
+            transformResponse: []
+        },
     });
 
     Message.prototype._selected = false;
@@ -187,9 +198,8 @@ app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResou
         $scope.conversationDetails = details;
     })
 
-    if (!msg.read) {
-        markRead(msg, $http);
-    }
+    msg.read = true;
+    markRead(msg, $http);
 
     $scope.markUnread = function() {
         markUnread(msg, $http);
@@ -199,7 +209,21 @@ app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResou
     }
 
     $scope.send = function() {
-        // TODO
+        var reply = Message.reply({id: msg.id, message: $scope.reply}, function(data) {
+            console.log("Successfully replied");
+            $scope.reply = "";
+
+            var msg_update = Message.get({id:$routeParams.msgId});
+            msg_update.$httpPromise.then(function() {
+                $scope.conversation = msg_update;
+            });
+
+            var details_update = MessageDetails.get({id:$routeParams.msgId});
+            details_update.$httpPromise.then(function() {
+                $scope.conversationDetails = details_update;
+            });
+        });
+
     }
 
     $scope.deleteMessage = function(){
