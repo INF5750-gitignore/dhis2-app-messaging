@@ -16,8 +16,8 @@
 
 
 	<div id="replyFields" class="replyFields">
-		<textarea class="replyTextArea"></textarea><br>
-		<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-send"></span> Send</button>
+		<textarea ng-model="reply" class="replyTextArea"></textarea><br>
+		<button ng-click="send()" type="button" class="btn btn-success"><span class="glyphicon glyphicon-send"></span> Send</button>
 	</div>
 
 
