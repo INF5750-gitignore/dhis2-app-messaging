@@ -1,30 +1,33 @@
 <div class="container" ng-controller="ShowAllMessages" id="rootElement">
-	<div class="header">
+	<div class="header vspace05">
 		<div ng-show="online"  id="messageListTitle">Messages <div class="badge totalUnread">{{(messages|filter:unreadMessages).length}}</div></div>
 		<div ng-hide="online"  id="messageListTitle">Messages (offline) <div class="badge">{{(messages|filter:unreadMessages).length}}</div></div>
-
 	</div>
 
-	<div class="row messageControlPanel">
+	<div class="row messageControlPanel vspace10">
 
-		<span class="btn-group col-xs-12 col-md-1">
-			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Options</button>
-			<ul class="dropdown-menu" role="menu">
-				<li><a href="" onclick="markAsRead()">Mark Read</a></li>
-				<li><a href="" onclick="markAsUnread()">Mark unread</a></li>
-				<li><a href="">Follow-Up</a></li>
-				<li><a href="">Stop Following</a></li>
-				<li class="divider"></li>
-				<li><a href="">Delete</a></li>
-			</ul>
-		</span>
-
-		<span class="col-xs-12 col-sm-3">
+		<span class="col-xs-12 col-sm-4 vspace05">
 			<select class="form-control messageFilterSelect" ng-model="messageFilter" ng-options="filter.display for filter in filters"></select>
 		</span>
 
-		<span class="col-xs-12 col-sm-3">
-			<input class="col-xs-12 form-control" type="text" id="searchBox" ng-model="searchText" placeholder="Search"></input>
+        <span class="xs-hidden col-sm-1"></span>
+
+		<span class="btn-group col-xs-3 col-sm-1 col-sm-push-5 col-md-1 vspace05">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Options</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="" ng-click="updateReadStatus(true)">Mark as read</a></li>
+				<li><a href="" ng-click="updateReadStatus(false)">Mark as unread</a></li>
+				<li><a href="">Follow-Up</a></li>
+				<li><a href="">Stop Following</a></li>
+                <!--
+				<li class="divider"></li>
+				<li><a href="">Delete</a></li>
+                --!>
+			</ul>
+		</span>
+
+		<span class="col-xs-9 col-sm-6 col-sm-pull-2 vspace05">
+			<input class="form-control" type="text" id="searchBox" ng-model="searchText" placeholder="Search"></input>
 		</span>
 
 	</div>
@@ -34,7 +37,7 @@
 		<div class="row list-group-item message-list" ng-class="{unread: message.read == false}">
 
 			<span class="col-xs-1 col-lg-1 messageGlyph">
-				<input  type="checkbox" value="{{ message.id }}"></input>
+				<input ng-model="message._selected" type="checkbox" value="{{ message.id }}"></input>
 				<span class="glyphicon star" ng-class="{'glyphicon-star-empty': message.followUp == false, 'glyphicon-star': message.followUp}"></span>
 
 			</span>
@@ -66,36 +69,6 @@
 	</div>
 
 </div>
-
-
-<script type="text/javascript">
-
-
-function markAsRead()
-{
-
-	var checkedValues = $('input:checkbox:checked').map(function() {
-		return this.value;
-	}).get();
-
-	for (i = 0; i < checkedValues.length; i++) { 
-		angular.element('#rootElement').scope().markReadID(checkedValues[i]);
-	}
-}
-
-function markAsUnread()
-{
-
-	var checkedValues = $('input:checkbox:checked').map(function() {
-		return this.value;
-	}).get();
-
-	for (i = 0; i < checkedValues.length; i++) { 
-		angular.element('#rootElement').scope().markUnreadID(checkedValues[i]);
-	}
-}
-
-</script>
 
 <!-- <span ng-show="{{ message.lastSenderFirstname.length }}" class="col-xs-6 col-md-3 col-lg-2 ellipsize">{{ message.lastSenderFirstname }} {{ message.lastSenderSurname }}</span>
 <span ng-hide="{{ message.lastSenderFirstname.length }}" class="col-xs-6 col-md-3 col-lg-2 ellipsize">(System message)</span>

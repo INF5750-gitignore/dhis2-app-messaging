@@ -13,7 +13,17 @@ body {
     font-weight: 500;
 }
 
+.vspace15 {
+    margin-bottom: 1.5em;
+}
 
+.vspace10 {
+    margin-bottom: 1.0em;
+}
+
+.vspace05 {
+    margin-bottom: 0.5em;
+}
 
 .ellipsize {
     display: inline-block;
