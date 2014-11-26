@@ -162,9 +162,12 @@ body {
     display: inline;
 }
 
-.dateDisplay{
-
+.dateDisplay {
     padding: 0px;
+}
+
+.dateBadge {
+    float: right;
 }
 
 .messageGlyph{
