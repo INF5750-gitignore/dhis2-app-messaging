@@ -198,6 +198,8 @@ app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResou
 
     msg.$httpPromise.then(function() {
         $scope.conversation = msg;
+    }, function() {
+        $location.path("/all");
     });
 
     var details = MessageDetails.get({id:$routeParams.msgId});
@@ -217,13 +219,15 @@ app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResou
 
     $scope.delete = function() {
         msg.$delete({}, function() {
+            Message.$clearCache({where: [{id: msg.id}]});
+            MessageDetails.$clearCache({where: [{id: msg.id}]});
+
             $location.path("/all");
         });
     }
 
     $scope.send = function() {
         var reply = Message.reply({id: msg.id, message: $scope.reply}, function(data) {
-            console.log("Successfully replied");
             $scope.reply = "";
 
             var msg_update = Message.get({id:$routeParams.msgId});
