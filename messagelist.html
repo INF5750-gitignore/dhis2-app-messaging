@@ -34,7 +34,7 @@
 
 			<span class="col-xs-1 col-lg-1 messageGlyph">
 				<input ng-model="message._selected" type="checkbox" value="{{ message.id }}"></input>
-				<span class="glyphicon star" ng-class="{'glyphicon-star-empty': message.followUp == false, 'glyphicon-star': message.followUp}"></span>
+				<span class="glyphicon glyphicon-star star" ng-hide="message.followUp==false"></span>
 
 			</span>
 
