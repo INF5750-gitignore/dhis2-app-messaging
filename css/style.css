@@ -159,3 +159,11 @@ body {
     margin : auto;
 
 }
+
+.down-arrow{
+    margin-left: 4px;
+    display: inline;
+    width: 9px;
+    height: 9px;
+    content: url("img/arrow-16.png") left top;
+}
