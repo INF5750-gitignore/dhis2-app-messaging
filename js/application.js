@@ -215,6 +215,12 @@ app.run(function($window, $http, $rootScope) {
             $rootScope.online = true;
         });
     }, false);
+
+    var root = $rootScope;
+    $http.get(dhisAPI + '/api/users.json?fields=id,name&paging=false').
+    success(function(data) {
+        root.users= angular.fromJson(data).users;
+    });
 });
 
 
