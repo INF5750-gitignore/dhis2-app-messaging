@@ -29,6 +29,10 @@ app.controller('ShowAllMessages', function($scope, $cachedResource, $filter, $ht
     {name:"follow", id:1, display:"Follow-Up"},
     {name:"unread", id:2, display:"Unread"}];
 
+    $scope.setFilter = function(filter) {
+        $scope.messageFilter = filter;
+    }
+
     $scope.messageFilter=$scope.filters[0];
 
     // Inconsistent API, names are stored differently when fetching a list
