@@ -167,3 +167,7 @@ body {
     height: 9px;
     content: url("img/arrow-16.png") left top;
 }
+
+.badge-info {
+  background-color: #3498db;
+}
