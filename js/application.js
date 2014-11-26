@@ -143,6 +143,13 @@ app.factory('Message', function($cachedResource, $http) {
             },
             transformResponse: []
         },
+        'delete': {
+            method: 'DELETE',
+            cached: false,
+            url: dhisAPI + 'api/messageConversations/:id',
+            transformRequest: [],
+            transformResponse: [],
+        }
     });
 
     Message.prototype._selected = false;
@@ -199,6 +206,12 @@ app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResou
         msg.read = false;
 
         $location.path("/all");
+    }
+
+    $scope.delete = function() {
+        msg.$delete({}, function() {
+            $location.path("/all");
+        });
     }
 
     $scope.send = function() {
