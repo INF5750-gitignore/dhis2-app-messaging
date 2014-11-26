@@ -4,8 +4,30 @@ body {
     background: #F2F4F7;
 }
 
+.space {
+    margin: auto;
+}
+
 .header {
     display: inline-flex;
+    width: 100%;
+}
+
+.title {
+    margin: auto 0;
+}
+
+.connectionIcon {
+    font-size: 0.5em !important;
+    margin: auto 0 auto 0;
+}
+
+.offline {
+    color: #BBB;
+}
+
+.totalUnread {
+    margin: auto 1em auto 0;
 }
 
 #messageListTitle {
@@ -148,12 +170,6 @@ body {
 .messageGlyph{
     padding: 0px;
     white-space:nowrap;
-
-}
-
-.totalUnread{
-
-    margin : auto;
 
 }
 

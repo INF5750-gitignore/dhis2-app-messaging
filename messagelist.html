@@ -1,8 +1,10 @@
 <div class="container" ng-controller="ShowAllMessages" id="rootElement">
-	<div class="header vspace05">
-		<div ng-show="online"  id="messageListTitle">Messages <div class="badge totalUnread">{{(messages|filter:unreadMessages).length}}</div></div>
-		<div ng-hide="online"  id="messageListTitle">Messages (offline) <div class="badge">{{(messages|filter:unreadMessages).length}}</div></div>
-	</div>
+    <div class="header vspace05" id="messageListTitle">
+        <div class="title">Messages</div>
+        <span class="space"></span>
+        <div ng-show="(messages|filter:unreadMessages).length" class="badge totalUnread">{{(messages|filter:unreadMessages).length}}</div>
+        <div class="fa fa-signal connectionIcon" ng-class="{offline: online == false}"></div>
+    </div>
 
 	<div class="row messageControlPanel vspace10">
 
