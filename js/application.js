@@ -179,6 +179,13 @@ var markUnread = function(msg, $http) {
     });
 }
 
+var deleteMessage = function(msg, $http){
+    $http({
+        method: 'DELETE',
+        url: dhisAPI + 'api/messageConversations/' + msg.id
+    });
+}
+
 //var msgDetailFields = "created,followUp,name,read,messageCount,displayName,lastSender,messages"
 var msgDetailFields = "*";
 
@@ -230,6 +237,15 @@ app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResou
             });
         });
 
+    }
+
+    $scope.deleteMessage = function(){
+
+        if(confirm("Warning! Are you sure you want to delete the message?"))
+        {
+            deleteMessage(msg, $http);
+            $location.path('/all');
+        }
     }
 
     $scope.conversation = msg;

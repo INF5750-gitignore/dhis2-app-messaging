@@ -4,22 +4,18 @@
 	<div class="messageControlPanel">
 		<a href="#all" type="button" class="btn btn-default">Back</a>
 		<button ng-click="markUnread()" type="button" class="btn btn-default">Mark as unread</button>
-		<button ng-click="delete()" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-
-
+		<button ng-click="delete()" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>Delete</button>
 	</div>
 
 	<div>
-		<h2 class="messageTitle">{{ conversation.displayName }}</h2> 
+		<h2 class="messageTitle">{{conversation.displayName}}</h2> 
 		<button type="button" class="btn btn-primary" id="replyButton">Reply</button>
 	</div>
-
 
 	<div id="replyFields" class="replyFields">
 		<textarea ng-model="reply" class="replyTextArea"></textarea><br>
 		<button ng-click="send()" type="button" class="btn btn-success"><span class="glyphicon glyphicon-send"></span> Send</button>
 	</div>
-
 
 	<ul ng-repeat="message in conversationDetails.messages | orderBy:'created':true" class="multipleMessages">
 		<li class="singleMessage">
@@ -29,11 +25,7 @@
 		</li>
 	</ul>
 
-
 </div>
-
-
-
 
 <script type="text/javascript">
 
