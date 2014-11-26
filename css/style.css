@@ -34,9 +34,6 @@ body {
     position: relative;
 }
 
-.message-list .star:hover {
-    color: #CCC;
-}
 
 .unread {
     font-weight: bold;
@@ -169,5 +166,5 @@ body {
 }
 
 .badge-info {
-  background-color: #3498db;
+  background-color: #337ab7;
 }
