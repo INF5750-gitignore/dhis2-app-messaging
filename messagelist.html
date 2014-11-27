@@ -1,16 +1,70 @@
 <div class="container" ng-controller="ShowAllMessages" id="rootElement">
-    <div class="header vspace05" id="messageListTitle">
+
+    <div class="header" id="messageListTitle">
         <div class="title">Messages</div>
         <span class="space"></span>
         <div ng-show="(messages|filter:unreadMessages).length" class="badge totalUnread">{{(messages|filter:unreadMessages).length}}</div>
         <div class="fa fa-signal connectionIcon" ng-class="{offline: online == false}"></div>
     </div>
 
-	<div class="row messageControlPanel vspace10">
-        <div class="fillthespan input-group">
+    <nav class="row navbar navbar-default" role="navigation">
+        <div class="container-fluid row">
+            <!-- Add new message -->
             <div class="col-xs-2 col-sm-1">
-                <div class="button fa fa-plus btn btn-primary"></div>
+                <button type="button" class="navbar-btn navbar-left btn btn-primary" aria-label="Left Align">
+                    <span class="fa fa-plus" aria-hidden="true"></span>
+                </button>
             </div>
+                
+            <!-- Search bar -->
+            <div class="col-xs-9 col-sm-6 col-sm-push-3 col-md-7 col-md-push-2">
+                <!-- navbar form from sm and up -->
+                <form style="width: 100%;" class="hidden-xs navbar-form navbar-left" role="search">
+                    <input style="width: 100%;" type="text" class="form-control" ng-model="searchText" placeholder="Search">
+                </form>
+
+                <form class="navbar-nav hidden-sm hidden-md hidden-lg navbar-left" role="search">
+                    <div class="form-group">
+                        <input class="form-control" type="text" id="searchBox" ng-model="searchText" placeholder="Search"></input>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-xs-5 col-sm-3 col-sm-pull-6 col-md-2 col-md-pull-7">
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ messageFilter.display }} <span class="caret"></span></a>
+
+                        <ul class="dropdown-menu" role="menu">
+                            <li ng-repeat="filter in filters"><a ng-click="setFilter(filter)">{{ filter.display }}</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-xs-7 col-sm-2 right-dropdown pull-right">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Options <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a class="right-dropdown" href="" onclick="selectAll()">Select all</a></li>
+                            <li><a class="right-dropdown" href="" onclick="selectNone()">Select none</a></li>
+                            <li><a class="right-dropdown" href="" ng-click="updateReadStatus(true)">Mark as read</a></li>
+                            <li><a class="right-dropdown" href="" ng-click="updateReadStatus(false)">Mark as unread</a></li>
+                            <li class="divider"></li>
+                            <li><a class="right-dropdown" href="" ng-click="delete()">Delete</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <!--
+        <div class="fillthespan input-group">
+        <div class="col-xs-2 col-sm-1">
+        <div class="button fa fa-plus btn btn-primary"></div>
+        </div>
 
             <div style="text-align: center;" class="col-xs-5 col-sm-2">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" area-expanded="false">{{ messageFilter.display }}<div class="down-arrow"></div></button>
@@ -35,6 +89,8 @@
         <div class="col-xs-12 col-sm-7">
             <input class="form-control" type="text" id="searchBox" ng-model="searchText" placeholder="Search"></input>
         </div>
+        -->
+
         <!--
         <div class="input-group">
             <span class="col-xs-6">
@@ -67,7 +123,6 @@
         </div>
         -->
 
-	</div>
 	<div>
 		<ul class="list-group">
 			<li ng-repeat="message in messages | filter: searchFilter | orderBy:'created':true | filterMessageDisplay:messageFilter" class="row list-group-item message-list" ng-class="{unread: message.read == false}">
@@ -82,7 +137,6 @@
 					<span>
 						<a class="fillthespan" href="#msg/{{ message.id }}">
 							<span class="col-xs-7 col-lg-4 ellipsize">
-
 								<span ng-show="{{ getName(message).length }}" >{{ getName(message) }}</span>
 								<span ng-hide="{{ getName(message).length }}" >(System message)</span>
 
