@@ -47,8 +47,8 @@
                     <li class="dropdown">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Options <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a class="right-dropdown" href="" onclick="selectAll()">Select all</a></li>
-                            <li><a class="right-dropdown" href="" onclick="selectNone()">Select none</a></li>
+                            <li><a class="right-dropdown" href="" ng-click="selectAll()">Select all</a></li>
+                            <li><a class="right-dropdown" href="" ng-click="selectNone()">Select none</a></li>
                             <li><a class="right-dropdown" href="" ng-click="updateReadStatus(true)">Mark as read</a></li>
                             <li><a class="right-dropdown" href="" ng-click="updateReadStatus(false)">Mark as unread</a></li>
                             <li class="divider"></li>
@@ -160,15 +160,3 @@
 	</div>
 
 </div>
-
-<script>
-
-function selectAll(){
-		$('.messageCheckbox').prop('checked', true);
-}
-
-function selectNone(){
-		$('.messageCheckbox').prop('checked', false);
-}
-
-</script>

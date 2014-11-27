@@ -59,6 +59,20 @@ app.controller('ShowAllMessages', function($scope, $cachedResource, $filter, $ht
         // TODO: Replace the complex filtering in the view with this function
     }
 
+    $scope.selectAll = function() {
+        for (var i = 0; i < $scope.messages.length; i++) {
+            var message = $scope.messages[i];
+            if (!message._selected) message._selected = true;
+        }
+    }
+
+    $scope.selectNone = function() {
+        for (var i = 0; i < $scope.messages.length; i++) {
+            var message = $scope.messages[i];
+            if (message._selected) message._selected = false;
+        }
+    }
+
     $scope.unreadMessages = function(msg) {
         return !msg.read;
     }
