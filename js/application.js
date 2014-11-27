@@ -206,13 +206,13 @@ app.factory('MessageDetails', function($cachedResource) {
     return $cachedResource('messageDetails', dhisAPI + '/api/messageConversations/:id/messages.json?fields=' + msgDetailFields, {id: "@id"});
 });
 
-app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResource, $location, Message, MessageDetails) {
+app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResource, $location, $rootScope, Message, MessageDetails) {
     var msg = Message.get({id:$routeParams.msgId});
 
     msg.$httpPromise.then(function() {
         $scope.conversation = msg;
     }, function() {
-        $location.path("/all");
+        if ($rootScope.online) $location.path("/all");
     });
 
     var details = MessageDetails.get({id:$routeParams.msgId});
