@@ -277,8 +277,18 @@ app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResou
     $scope.conversationDetails = details;
 });
 
-app.controller('NewMessage', function() {
+app.controller('NewMessage', function($scope, $http) {
+    $scope.send = function() {
+        var json = {};
+        json.subject = $scope.subject;
+        json.text = $scope.text;
+        json.users = $scope.users;
 
+        $http.post(dhisAPI + '/api/messageConversations', json).
+        success(function(data) {
+            alert(data);
+        });
+    };
 });
 
 app.run(function($window, $http, $rootScope) {
@@ -301,7 +311,7 @@ app.run(function($window, $http, $rootScope) {
     var root = $rootScope;
     $http.get(dhisAPI + '/api/users.json?fields=id,name&paging=false').
     success(function(data) {
-        root.users= angular.fromJson(data).users;
+        root.list_users= angular.fromJson(data).users;
     });
 });
 

@@ -1,0 +1,24 @@
+<div class="container">
+
+    <div class="header">
+        <h2 class="title">New message</h2>
+    </div>
+
+    <div class="newMessageFields" id="newMessageFields">
+        <form ng-submit="send()">
+
+            {{list_users}}<br>
+
+            <input id="users" type="text" ng-model="users" ng-required="true" name="users" placeholder="To">
+            <br><br>
+
+            <input id="subject" type="text" ng-model="subject" ng-required="true" name="subject" placeholder="Subject">
+            <br>
+
+            <textarea id="text" ng-model="text" class="replyTextArea" placeholder="Message"></textarea>
+            <br>
+        <button type="submit" class="btn btn-success pull-right"><span class="glyphicon glyphicon-send"></span> Send</button>
+        <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
