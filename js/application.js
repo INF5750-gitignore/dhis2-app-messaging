@@ -277,6 +277,10 @@ app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResou
     $scope.conversationDetails = details;
 });
 
+app.controller('NewMessage', function() {
+
+});
+
 app.run(function($window, $http, $rootScope) {
     if (isDev) {
         $http.defaults.headers.common.Authorization = make_base_auth("admin", "district");

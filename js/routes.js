@@ -10,6 +10,10 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl: 'messagelist.html',
             controller: 'ShowAllMessages'
         })
+        .when('/new', {
+            templateUrl: 'newmessage.html',
+            controller: 'NewMessage'
+        })
         .otherwise({
             redirectTo: '/all'
         })
