@@ -1,30 +1,46 @@
 
-<div class="conversationContainer">
+<div class="container">
 
-	<div class="messageControlPanel">
-		<a href="#all" type="button" class="btn btn-default">Back</a>
-		<button ng-click="markUnread()" type="button" class="btn btn-default">Mark as unread</button>
-		<button ng-click="delete()" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>Delete</button>
-	</div>
+    <nav class="navbar navbar-collapse navbar-default" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-nav">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#all" type="button" class="navbar-btn btn btn-default">Back</a>
+                <button type="button" class="btn btn-primary" id="replyButton">Reply</button>
+                <button ng-click="markUnread()" type="button" class="hidden-xs navbar-btn btn btn-default">Mark as unread</button>
+            </div>
 
-	<div>
-		<h2 class="messageTitle">{{conversation.displayName}}</h2> 
-		<button type="button" class="btn btn-primary" id="replyButton">Reply</button>
-	</div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div style="padding-left: 0;" class="collapse navbar-collapse navbar-right row" id="collapsable">
+                    <button ng-click="markUnread()" type="button" class="hidden-sm hidden-md hidden-lg navbar-btn btn btn-default">Mark as unread</button>
+                    <button ng-click="delete()" type="button" class="navbar-btn pull-right btn btn-danger"><span class="glyphicon glyphicon-trash"></span>Delete</button>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
 
-	<div id="replyFields" class="replyFields">
-		<textarea ng-model="reply" class="replyTextArea"></textarea><br>
-		<button ng-click="send()" type="button" class="btn btn-success"><span class="glyphicon glyphicon-send"></span> Send</button>
-	</div>
+    <div class="header">
+        <h2 class="title">{{conversation.displayName}}</h2>
+    </div>
 
-	<ul ng-repeat="message in conversationDetails.messages | orderBy:'created':true" class="multipleMessages">
-		<li class="singleMessage">
-			<div class="sender">{{message.sender.name}}</div>
-			<div class="messageTime">{{message.created | date : 'HH:mm dd MMM yyyy'}}</div>
-			<div ng-bind-html="message.text" class="messageContent"></div>
-		</li>
-	</ul>
+    <div class="replyFields" id="replyFields">
+        <textarea ng-model="reply" class="replyTextArea"></textarea><br>
+        <button ng-click="send()" type="button" class="btn btn-success pull-right"><span class="glyphicon glyphicon-send"></span> Send</button>
+        <div class="clearfix"></div>
+    </div>
 
+    <ul ng-repeat="message in conversationDetails.messages | orderBy:'created':true" class="multipleMessages">
+        <li class="singleMessage">
+            <div class="sender">{{message.sender.name}}</div>
+            <div class="messageTime">{{message.created | date : 'HH:mm dd MMM yyyy'}}</div>
+            <div ng-bind-html="message.text" class="messageContent"></div>
+        </li>
+    </ul>
 </div>
 
 <script type="text/javascript">
@@ -32,7 +48,7 @@
 $("#replyFields").hide();
 
 $("#replyButton").click(function(){
-	$("#replyFields").toggle(100);
+    $("#replyFields").toggle({effect: "scale", direction: "vertical", percent: 100, scale: "box"});
 });
 
 </script>

@@ -108,18 +108,6 @@ body {
 
 /* Message page */
 
-.conversationContainer{
-
-    margin: auto;
-    max-width: 800px;
-    padding:20px;
-}
-
-.messageControlPanel{
-
-    text-align: left;
-}
-
 .singleMessage{
     margin-top: 20px;
     margin-bottom: 20px;
@@ -152,10 +140,14 @@ body {
 }
 
 .replyTextArea{
-    width: 100%;
-    height: 100px;
+    min-width: 100%;
+    min-height: 8em;
     margin-top:10px;
     margin-bottom: 10px;
+}
+
+.replyFields {
+    min-width: 100%;
 }
 
 .messageFilterSelect{
