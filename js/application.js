@@ -278,15 +278,23 @@ app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResou
 });
 
 app.controller('NewMessage', function($scope, $http) {
+
     $scope.send = function() {
         var json = {};
+        json.users = [];
         json.subject = $scope.subject;
         json.text = $scope.text;
-        json.users = $scope.users;
+
+        $scope.list_users.forEach(function(u) {
+           if(u.selected != undefined && u.selected == true) {
+               json.users.push({id: u.id, name: u.name});
+           }
+        });
 
         $http.post(dhisAPI + '/api/messageConversations', json).
         success(function(data) {
             alert(data);
+            // TODO : root to main page
         });
     };
 });

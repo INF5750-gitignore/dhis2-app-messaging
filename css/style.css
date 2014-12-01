@@ -150,6 +150,15 @@ body {
     min-width: 100%;
 }
 
+.newMessageFields {
+    padding-top: 10px;
+}
+
+.newMessageFields input {
+    margin-top: 15px;
+}
+
+
 .messageFilterSelect{
     display: inline;
 }
