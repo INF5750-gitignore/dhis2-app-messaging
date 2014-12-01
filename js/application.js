@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('app', ['ngRoute', 'infinite-scroll', 'ngCachedResource', 'ngSanitize']);
+var app = angular.module('app', ['ngRoute', 'infinite-scroll', 'ngCachedResource', 'ngSanitize', 'ngTagsInput']);
 
 function make_base_auth(user, password) {
     var tok = user + ':' + password;
@@ -8,7 +8,7 @@ function make_base_auth(user, password) {
     return 'Basic ' + hash;
 }
 
-app.controller('ShowAllMessages', function($scope, $cachedResource, $filter, $http, Message, MessageDetails) {
+app.controller('ShowAllMessages', function($scope, $cachedResource, $filter, $http, $q, Message, MessageDetails) {
     var msgs = Message.all();
     $scope.messages = msgs;
 
@@ -115,16 +115,38 @@ app.controller('ShowAllMessages', function($scope, $cachedResource, $filter, $ht
 
     $scope.delete = function()
     {
-        if(confirm("Warning! Are you sure you want to delete the message?"))
-        {
+        if(!confirm("Warning! Are you sure you want to delete the selected messages?"))
+            return;
 
-            for (var i = 0; i < $scope.messages.length; i++) {
-                var message = $scope.messages[i];
-                if (message._selected) {
-                    message.$delete();
-                }
+        var selected = [];
+        var unselected = [];
+
+        for (var i = 0; i < $scope.messages.length; i++) {
+            var message = $scope.messages[i];
+            if (message._selected) {
+                selected.push(message);
+            } else {
+                unselected.push(message);
             }
         }
+
+        var deleteList = function(list) {
+            var msg = list.pop();
+
+            msg.$delete(function(data) {
+                console.log("Deleted", msg.id);
+
+                Message.$clearCache({where: [{id: msg.id}]});
+                MessageDetails.$clearCache({where: [{id: msg.id}]});
+
+                if (list.length > 0) {
+                    deleteList(list);
+                }
+            });
+        }
+
+        deleteList(selected);
+        $scope.messages = unselected;
     }
 
 });
@@ -176,6 +198,14 @@ app.factory('Message', function($cachedResource, $http) {
             },
             transformResponse: []
         },
+        'create': {
+            method: 'POST',
+            cached: false, // Can't cache this (message has no ID yet)
+            url: dhisAPI + 'api/messageConversations',
+            transformResponse: function(data, headers) {
+                return {id: headers("Location").split("/")[2]};
+            }
+        },
         'delete': {
             method: 'DELETE',
             cached: false,
@@ -185,9 +215,9 @@ app.factory('Message', function($cachedResource, $http) {
         }
     });
 
-Message.prototype._selected = false;
+    Message.prototype._selected = false;
 
-return Message;
+    return Message;
 });
 
 var markRead = function(msg, $http) {
@@ -225,6 +255,7 @@ app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResou
 
     msg.$httpPromise.then(function() {
         $scope.conversation = msg;
+        markRead(msg, $http);
     }, function(response) {
         if (response.status === 404) $location.path("/all");
     });
@@ -235,7 +266,6 @@ app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResou
     })
 
     msg.read = true;
-    markRead(msg, $http);
 
     $scope.markUnread = function() {
         markUnread(msg, $http);
@@ -277,18 +307,40 @@ app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResou
     $scope.conversationDetails = details;
 });
 
-app.controller('NewMessage', function($scope, $http) {
+app.controller('NewMessage', function($scope, $http, Message, $q, $rootScope, $location, $filter) {
     $scope.send = function() {
         var json = {};
         json.subject = $scope.subject;
         json.text = $scope.text;
         json.users = $scope.users;
 
+        /*
         $http.post(dhisAPI + '/api/messageConversations', json).
         success(function(data) {
             alert(data);
         });
+        */
+
+        Message.create({
+            subject: $scope.subject,
+            text:    $scope.text,
+            users:   $scope.users.map(function(user) { return {id: user.id } }),
+        }).$promise.then(function(data) {
+            console.log(data);
+
+            $location.path("/msg/" + data.id);
+        });
     };
+
+    $scope.users = [];
+
+    $scope.searchUsers = function(query) {
+        return $q(function(resolve, reject) {
+            var filtered = $filter('filter')($rootScope.list_users, query.toLowerCase());
+            var options = filtered.map(function(user) { return {text: user.name, id: user.id}; });
+            resolve(options);
+        });
+    }
 });
 
 app.run(function($window, $http, $rootScope) {
