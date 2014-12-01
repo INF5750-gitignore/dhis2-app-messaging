@@ -10,9 +10,9 @@
             <div multi-select input-model="list_users_new_message" output-model="users" button-label="icon name" item-label="icon name maker" tick-property="selected" max-labels="5">
             </div>
 
-            <input id="subject" type="text" ng-model="subject" ng-required="true" name="subject" placeholder="Subject">
+            <input id="subject" type="text" ng-model="subject" ng-required="true" name="subject" class="form-control" placeholder="Subject">
 
-            <textarea id="text" ng-model="text" class="replyTextArea" placeholder="Message"></textarea>
+            <textarea id="text" ng-model="text" class="replyTextArea form-control" placeholder="Message"></textarea>
             <a href="#all" type="button" class="navbar-btn btn btn-default">Back</a>
             <button type="submit" class="btn btn-success pull-right"><span class="glyphicon glyphicon-send"></span> Send</button>
         <div class="clearfix"></div>

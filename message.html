@@ -29,8 +29,8 @@
     </div>
 
     <div class="replyFields" id="replyFields">
-        <textarea ng-model="reply" class="replyTextArea"></textarea><br>
-        <button ng-click="send()" type="button" class="btn btn-success pull-right"><span class="glyphicon glyphicon-send"></span> Send</button>
+        <textarea ng-model="reply" class="replyTextArea form-control"></textarea><br>
+        <button ng-click="send()" type="button" class="btn btn-success pull-right" onclick="collapseFields()"><span class="glyphicon glyphicon-send"></span> Send</button>
         <div class="clearfix"></div>
     </div>
 
@@ -47,8 +47,14 @@
 
 $("#replyFields").hide();
 
-$("#replyButton").click(function(){
+function collapseFields()
+{
     $("#replyFields").toggle({effect: "scale", direction: "vertical", percent: 100, scale: "box"});
-});
+}
+
+
+$("#replyButton").click(function(){collapseFields()});
+
+
 
 </script>
