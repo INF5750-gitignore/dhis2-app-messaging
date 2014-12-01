@@ -279,6 +279,8 @@ app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResou
 
 app.controller('NewMessage', function($scope, $http, $location) {
 
+    $scope.list_users_new_message = angular.copy($scope.list_users);
+
     $scope.send = function() {
         var json = {};
         json.users = [];
