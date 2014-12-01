@@ -29,9 +29,11 @@
     </div>
 
     <div class="replyFields" id="replyFields">
-        <textarea ng-model="reply" class="replyTextArea form-control"></textarea><br>
-        <button ng-click="send()" type="button" class="btn btn-success pull-right" onclick="collapseFields()"><span class="glyphicon glyphicon-send"></span> Send</button>
-        <div class="clearfix"></div>
+        <form ng-submit="send()" id="replyForm">
+            <textarea ng-model="reply" class="replyTextArea form-control" ng-required="true" ></textarea><br>
+            <button type="submit" class="btn btn-success pull-right"><span class="glyphicon glyphicon-send"></span> Send</button>
+            <div class="clearfix"></div>
+        </form>
     </div>
 
     <ul ng-repeat="message in conversationDetails.messages | orderBy:'created':true" class="multipleMessages">
@@ -55,6 +57,6 @@ function collapseFields()
 
 $("#replyButton").click(function(){collapseFields()});
 
-
+$("#replyForm").submit(function(){collapseFields()});
 
 </script>
