@@ -277,7 +277,7 @@ app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResou
     $scope.conversationDetails = details;
 });
 
-app.controller('NewMessage', function($scope, $http) {
+app.controller('NewMessage', function($scope, $http, $location) {
 
     $scope.send = function() {
         var json = {};
@@ -289,10 +289,10 @@ app.controller('NewMessage', function($scope, $http) {
             json.users.push({id: u.id, name: u.name});
         });
 
+        var loc = $location;
         $http.post(dhisAPI + '/api/messageConversations', json).
         success(function(data) {
-            alert(data);
-            // TODO : root to main page
+            loc.path('/all').replace();
         });
     };
 });
