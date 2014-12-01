@@ -284,11 +284,9 @@ app.controller('NewMessage', function($scope, $http) {
         json.users = [];
         json.subject = $scope.subject;
         json.text = $scope.text;
-
-        $scope.list_users.forEach(function(u) {
-           if(u.selected != undefined && u.selected == true) {
-               json.users.push({id: u.id, name: u.name});
-           }
+        
+        $scope.users.forEach(function(u) {
+            json.users.push({id: u.id, name: u.name});
         });
 
         $http.post(dhisAPI + '/api/messageConversations', json).

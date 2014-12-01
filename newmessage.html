@@ -7,7 +7,7 @@
     <div class="newMessageFields" id="newMessageFields">
         <form ng-submit="send()">
 
-            <div multi-select input-model="list_users" button-label="icon name" item-label="icon name maker" tick-property="selected">
+            <div multi-select input-model="list_users" output-model="users" button-label="icon name" item-label="icon name maker" tick-property="selected" max-labels="5">
             </div>
 
             <input id="subject" type="text" ng-model="subject" ng-required="true" name="subject" placeholder="Subject">
