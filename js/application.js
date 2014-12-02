@@ -8,14 +8,12 @@ function make_base_auth(user, password) {
     return 'Basic ' + hash;
 }
 
-app.controller('ShowAllMessages', function($scope, $cachedResource, $filter, $http, Message, MessageDetails) {
-    var msgs = Message.all();
-    $scope.messages = msgs;
-
-    msgs.$httpPromise.then(function() {
+app.controller('ShowAllMessages', function($scope, $cachedResource, $filter, $http, Message, MessageDetails, messages) {
+    $scope.messages = messages;
+    messages.$httpPromise.then(function() {
         // TODO: Add some limit
-        for(var i = 0; i < msgs.length; i++) {
-            MessageDetails.get({id: msgs[i].id});
+        for(var i = 0; i < messages.length; i++) {
+            MessageDetails.get({id: messages[i].id});
         }
 
         if (isDev) {
@@ -269,26 +267,21 @@ app.factory('MessageDetails', function($cachedResource) {
     return $cachedResource('messageDetails', dhisAPI + '/api/messageConversations/:id/messages.json?fields=' + msgDetailFields, {id: "@id"});
 });
 
-app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResource, $location, $rootScope, Message, MessageDetails) {
-    var msg = Message.get({id:$routeParams.msgId});
+app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResource, $location, $rootScope, Message, MessageDetails, message, messageDetails) {
+    $scope.conversation = message;
+    $scope.conversationDetails = messageDetails;
 
-    msg.$httpPromise.then(function() {
-        $scope.conversation = msg;
-        markRead(msg, $http);
+    message.$httpPromise.then(function() {
+        markRead(message, $http);
     }, function(response) {
         if (response.status === 404) $location.path("/all");
     });
 
-    var details = MessageDetails.get({id:$routeParams.msgId});
-    details.$httpPromise.then(function() {
-        $scope.conversationDetails = details;
-    })
-
-    msg.read = true;
+    message.read = true;
 
     $scope.markUnread = function() {
-        markUnread(msg, $http);
-        msg.read = false;
+        markUnread(message, $http);
+        message.read = false;
 
         $location.path("/all");
     }
@@ -296,9 +289,9 @@ app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResou
     $scope.delete = function() {
         if(confirm("Warning! Are you sure you want to delete the message?"))
         {
-            msg.$delete({}, function() {
-                Message.$clearCache({where: [{id: msg.id}]});
-                MessageDetails.$clearCache({where: [{id: msg.id}]});
+            message.$delete({}, function() {
+                Message.$clearCache({where: [{id: message.id}]});
+                MessageDetails.$clearCache({where: [{id: message.id}]});
 
                 $location.path("/all");
             });
@@ -306,7 +299,7 @@ app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResou
     }
 
     $scope.send = function() {
-        var reply = Message.reply({id: msg.id, message: $scope.reply}, function(data) {
+        var reply = Message.reply({id: message.id, message: $scope.reply}, function(data) {
             $scope.reply = "";
 
             var msg_update = Message.get({id:$routeParams.msgId});
@@ -321,14 +314,10 @@ app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResou
         });
 
     }
-
-    $scope.conversation = msg;
-    $scope.conversationDetails = details;
 });
 
-app.controller('NewMessage', function($scope, $http, $location) {
-
-    $scope.list_users_new_message = angular.copy($scope.list_users);
+app.controller('NewMessage', function($scope, $http, $location, userList) {
+    $scope.userList = angular.copy(userList);
 
     $scope.send = function() {
         Message.create({
@@ -343,7 +332,7 @@ app.controller('NewMessage', function($scope, $http, $location) {
     $scope.users = [];
 });
 
-app.run(function($window, $http, $rootScope) {
+app.run(function($window, $http, $rootScope, User) {
     if (isDev) {
         $http.defaults.headers.common.Authorization = make_base_auth("admin", "district");
     }
@@ -359,12 +348,6 @@ app.run(function($window, $http, $rootScope) {
             $rootScope.online = true;
         });
     }, false);
-
-    var root = $rootScope;
-    $http.get(dhisAPI + '/api/users.json?fields=id,name&paging=false').
-    success(function(data) {
-        root.list_users= angular.fromJson(data).users;
-    });
 });
 
 
