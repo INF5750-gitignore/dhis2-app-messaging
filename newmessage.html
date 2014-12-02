@@ -1,5 +1,19 @@
 <div class="container">
 
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-nav">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#all" type="button" class="navbar-btn btn btn-default">Back</a>
+            </div>
+        </div>
+    </nav>
+
     <div class="header">
         <h2 class="title">New message</h2>
     </div>
@@ -13,7 +27,6 @@
             <input id="subject" type="text" ng-model="subject" ng-required="true" name="subject" class="form-control" placeholder="Subject">
 
             <textarea id="text" ng-model="text" class="replyTextArea form-control" placeholder="Message"></textarea>
-            <a href="#all" type="button" class="navbar-btn btn btn-default">Back</a>
             <button type="submit" class="btn btn-success pull-right"><span class="glyphicon glyphicon-send"></span> Send</button>
         <div class="clearfix"></div>
         </form>
