@@ -9,6 +9,9 @@ app.controller('NewMessage', function($scope, $http, $location, Message, userLis
     });
 
     $scope.send = function() {
+        if ($scope.users.length === 0)
+            return;
+
         Message.create({
             subject: $scope.subject,
             text:    $scope.text,
