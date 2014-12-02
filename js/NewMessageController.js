@@ -1,7 +1,7 @@
 
 var app = angular.module('app');
 
-app.controller('NewMessage', function($scope, $http, $location, userList) {
+app.controller('NewMessage', function($scope, $http, $location, Message, userList) {
     $scope.userList = angular.copy(userList);
 
     userList.$httpPromise.then(function() {
