@@ -115,16 +115,38 @@ app.controller('ShowAllMessages', function($scope, $cachedResource, $filter, $ht
 
     $scope.delete = function()
     {
-        if(confirm("Warning! Are you sure you want to delete the message?"))
-        {
+        if(!confirm("Warning! Are you sure you want to delete the selected messages?"))
+            return;
 
-            for (var i = 0; i < $scope.messages.length; i++) {
-                var message = $scope.messages[i];
-                if (message._selected) {
-                    message.$delete();
-                }
+        var selected = [];
+        var unselected = [];
+
+        for (var i = 0; i < $scope.messages.length; i++) {
+            var message = $scope.messages[i];
+            if (message._selected) {
+                selected.push(message);
+            } else {
+                unselected.push(message);
             }
         }
+
+        var deleteList = function(list) {
+            var msg = list.pop();
+
+            msg.$delete(function(data) {
+                console.log("Deleted", msg.id);
+
+                Message.$clearCache({where: [{id: msg.id}]});
+                MessageDetails.$clearCache({where: [{id: msg.id}]});
+
+                if (list.length > 0) {
+                    deleteList(list);
+                }
+            });
+        }
+
+        deleteList(selected);
+        $scope.messages = unselected;
     }
 
 });
@@ -176,6 +198,14 @@ app.factory('Message', function($cachedResource, $http) {
             },
             transformResponse: []
         },
+        'create': {
+            method: 'POST',
+            cached: false, // Can't cache this (message has no ID yet)
+            url: dhisAPI + 'api/messageConversations',
+            transformResponse: function(data, headers) {
+                return {id: headers("Location").split("/")[2]};
+            }
+        },
         'delete': {
             method: 'DELETE',
             cached: false,
@@ -185,9 +215,9 @@ app.factory('Message', function($cachedResource, $http) {
         }
     });
 
-Message.prototype._selected = false;
+    Message.prototype._selected = false;
 
-return Message;
+    return Message;
 });
 
 var markRead = function(msg, $http) {
@@ -225,6 +255,7 @@ app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResou
 
     msg.$httpPromise.then(function() {
         $scope.conversation = msg;
+        markRead(msg, $http);
     }, function(response) {
         if (response.status === 404) $location.path("/all");
     });
@@ -235,7 +266,6 @@ app.controller('ShowMessage', function($scope, $http, $routeParams, $cachedResou
     })
 
     msg.read = true;
-    markRead(msg, $http);
 
     $scope.markUnread = function() {
         markUnread(msg, $http);
@@ -282,21 +312,16 @@ app.controller('NewMessage', function($scope, $http, $location) {
     $scope.list_users_new_message = angular.copy($scope.list_users);
 
     $scope.send = function() {
-        var json = {};
-        json.users = [];
-        json.subject = $scope.subject;
-        json.text = $scope.text;
-        
-        $scope.users.forEach(function(u) {
-            json.users.push({id: u.id, name: u.name});
-        });
-
-        var loc = $location;
-        $http.post(dhisAPI + '/api/messageConversations', json).
-        success(function(data) {
-            loc.path('/all').replace();
+        Message.create({
+            subject: $scope.subject,
+            text:    $scope.text,
+            users:   $scope.users.map(function(user) { return {id: user.id } }),
+        }).$promise.then(function(data) {
+            $location.path("/msg/" + data.id);
         });
     };
+
+    $scope.users = [];
 });
 
 app.run(function($window, $http, $rootScope) {
