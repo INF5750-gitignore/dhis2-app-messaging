@@ -1,13 +1,16 @@
 CACHE MANIFEST
 
+# Change the line below when updating
+# Last updated: 2014-12-07 13:40 (oystedal)
+
 CACHE:
 
 # Core pages
 manifest.webapp
+index.html
 message.html
 messagelist.html
-README.md
-index.html
+newmessage.html
 
 # CSS
 css/bootstrap.css
@@ -18,6 +21,7 @@ css/bootstrap-theme.css.map
 css/bootstrap-theme.min.css
 css/font-awesome.css
 css/font-awesome.min.css
+css/angular-multi-select.css
 css/style.css
 
 # Fonts
@@ -39,23 +43,37 @@ img/icons/icon-32.png
 img/icons/icon-48.png
 img/icons/icon-64.png
 
-#Js
+# Js
+js/init.js
+js/jquery/jquery.js
+js/jquery/jquery.min.js
+js/jquery/jquery-1.11.1.min.map
+js/bootstrap/bootstrap.js
+js/bootstrap/bootstrap.min.js
+
+# Angular
 js/angularjs/angular.min.js
 js/angularjs/angular.min.js.map
 js/angularjs/angular-resource.min.js
 js/angularjs/angular-resource.min.js.map
 js/angularjs/angular-route.min.js
 js/angularjs/angular-route.min.js.map
-js/ng-infinite-scroll/ng-infinite-scroll.js
-js/ng-infinite-scroll/ng-infinite-scroll.min.js
+
+# Angular libs
+js/angular-cached-resource/angular-cached-resource.js
+js/angular-cached-resource/angular-cached-resource.min.js
+js/angular-multi-select/angular-multi-select.js
+
+# Angular app
 js/application.js
-js/bootstrap/bootstrap.js
-js/bootstrap/bootstrap.min.js
-js/init.js
-js/jquery/jquery-1.11.1.min.map
-js/jquery/jquery.js
-js/jquery/jquery.min.js
 js/services.js
+js/MessageController.js
+js/MessageDetails.js
+js/Message.js
+js/MessageListController.js
+js/NewMessageController.js
+js/routes.js
+js/User.js
 
 NETWORK:
 *
